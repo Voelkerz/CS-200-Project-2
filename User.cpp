@@ -2,6 +2,11 @@
 using namespace std;
 #include "User.h"
 #include<iostream>
+
+User::User() {
+	
+}
+
 void User::setName(string f, string l)
 {
 	fname = f;

@@ -20,5 +20,5 @@ class Accounts
 		double accountNumber;
 		string AccountType;
 		double accountBalance;
-}
+};
 #endif

@@ -7,4 +7,5 @@ class Banker: public Employee
 {
 	public:
 		void setID(string i);
-}
+};
+#endif

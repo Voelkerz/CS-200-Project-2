@@ -1,5 +1,5 @@
 //Admin_Utility.h
-#include "Utility.h"
+#include "Login_Util.h"
 #include "User.h"
 #include "Employee.h"
 #include "Customer.h"
@@ -7,7 +7,7 @@
 
 #ifndef ADMIN_UTILITY_H
 #define ADMIN_UTILITY_H
-class Admin_Utility: public Utility {
+class Admin_Utility: public Login_Util {
 	public:
 		static void util_main(Admin*, int, int&);
 		static int menu();
