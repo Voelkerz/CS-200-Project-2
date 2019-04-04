@@ -1,7 +1,14 @@
 //Login_Util.cpp
 #include "Login_Util.h"
 
+// MAIN for Login Screen
+void Login_Util::util_main() {
+	
+}
+
+// Login Menu Function
 int Login_Util::menu() {
+	
 	int option;
 	
 	system("CLS");
