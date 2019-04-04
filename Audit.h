@@ -14,6 +14,6 @@ class Audit
 		
 	private:
 		
-}
+};
 
 #endif

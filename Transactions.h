@@ -9,14 +9,14 @@ class Transactions
 {
 	public:
 		Transactions();
-		double deposit();
-		double withdraw();
+		double deposit(double);
+		double withdraw(double);
 		void toTransactionFile();
 		void fromTransactionFile();
 		
 	private:
 		double transactionID;
 		double amount;
-}
+};
 
 #endif
