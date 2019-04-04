@@ -9,7 +9,7 @@ class Accounts
 {
 	public:
 		Accounts();
-		void setAccountNumber(double);
+		void setAccountNumber();
 		void setAccountType(string);
 		void setBalance(double);
 		double getAccountNumber();
@@ -18,7 +18,7 @@ class Accounts
 		
 	private:
 		double accountNumber;
-		string accountType;
+		string AccountType;
 		double accountBalance;
 };
 #endif
