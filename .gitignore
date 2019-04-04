@@ -1,3 +1,7 @@
 
 *.win
 *.layout
+*.dev
+*.exe
+*.o
+Project1TestApp.cpp
