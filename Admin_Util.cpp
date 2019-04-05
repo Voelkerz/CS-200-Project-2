@@ -1,4 +1,4 @@
-//Admin_Util.cpp
+// Admin_Util.cpp
 #include "Admin_Util.h"
 
 void Admin_Util::util_main(Admin* admListPTR, int max, int &admPos) {
