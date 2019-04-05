@@ -1,6 +1,7 @@
 //User.h
+#include <iostream>
+#include "Login.h"
 
-#include<iostream>
 #ifndef USER_H
 #define USER_H
 using namespace std;
@@ -22,6 +23,7 @@ class User
 			string getAccessRights();
 			string getID();
 			string getDOB();
+			Login loginInfo;
 	
 	};
 
