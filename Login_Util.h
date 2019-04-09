@@ -7,10 +7,10 @@
 #define LOGIN_UTIL_H
 class Login_Util {
 	public:
-		static void util_main(User* userList[], int max);
-		static void menu(User* userList[], int max);
+		static void util_main(User* userList[], Admin* adminList,  int max, int &userPos, int &adminPos);
+		static bool menu(User* userList[], int, int &pos);
 		static void toLoginFile(string);
-		static void fromLoginFile(User* userList[], int max);
+		static void fromLoginFile(User* userList[], int max, int &pos);
 		virtual void foo()=0;
 };
 #endif

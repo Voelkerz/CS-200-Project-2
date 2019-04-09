@@ -8,7 +8,7 @@ using namespace std;
 #define ADMIN_UTIL_H
 class Admin_Util {
 	public:
-		static void util_main(Admin*, int, int&);
+		static bool util_main(User* [], Admin*, int, int&, int&);
 		static int menu();
 		static void createAdmin(Admin*, int, int&);
 		static void printAllUsers(Admin*, int);

@@ -2,20 +2,30 @@
 #include "Login_Util.h"
 
 // MAIN for Login Screen
-void Login_Util::util_main(User* userList[], int max) {
+void Login_Util::util_main(User* userList[], Admin* adminList,  int max, int &userPos, int &adminPos) {
 	
+	bool loggedIn = false;
 	//Login_Util::fromLoginFile(userList, max);
 	
 	do {
-		Login_Util::menu(userList, max);
-	} while(1);
+		loggedIn = Login_Util::menu(userList, max, userPos);
+		
+		if (loggedIn) {
+			loggedIn = Admin_Util::util_main(userList, adminList, max, userPos, adminPos);
+		}
+		else {
+			cout <<"\n**Error: Incorrect Username or Password**"<<endl;
+		}
+		
+		system("PAUSE");
+	} while(!loggedIn);
 }
 
 // Login Menu Function
-void Login_Util::menu(User* list[], int max) {
+bool Login_Util::menu(User* list[], int max, int &pos) {
 	
 	string username, password, u, p;
-	bool loggedIn = false;
+	bool logIn;
 	
 	system("CLS");
 	cout <<"Username: "<<endl;
@@ -23,26 +33,23 @@ void Login_Util::menu(User* list[], int max) {
 	cout <<"Password: "<<endl;
 	cin >>password;
 	
-	for (int i=0; i<max; i++) {
+	for (int i=0; i<pos; i++) {
 		u = list[i]->loginInfo.getUsername();
 		p = list[i]->loginInfo.getPassword();
 		if (username == u && password == p) {
-			loggedIn = true;
+			return logIn = true;
 		}
+		else
+			return logIn = false;
 	}
 	
-	if (loggedIn) {
-		Admin_Util::menu();
-	}
-	else {
-		cout <<"\n**Error: Incorrect Username or Password**"<<endl;
-	}
+	
 }
 
 /////////////////
 // ACCESSORS
 
-void Login_Util::fromLoginFile(User* list[], int max) {
+void Login_Util::fromLoginFile(User* list[], int max, int &pos) {
 	
 	list[0]->loginInfo.setUsername("voelkerz");
 	list[0]->loginInfo.setPassword("pass123");

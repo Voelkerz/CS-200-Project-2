@@ -1,7 +1,7 @@
 // Admin_Util.cpp
 #include "Admin_Util.h"
 
-void Admin_Util::util_main(Admin* admListPTR, int max, int &admPos) {
+bool Admin_Util::util_main(User* userList[], Admin* admListPTR, int max, int &userPos, int &admPos) {
 	int option;
 	
 	do {
@@ -14,8 +14,8 @@ void Admin_Util::util_main(Admin* admListPTR, int max, int &admPos) {
 				Admin_Util::printAllUsers(admListPTR, admPos);
 				break;
 			case 5:
-				cout <<"**Exiting Administrator Utility Program**"<<endl;
-				break;
+				cout <<"**Logging Off**"<<endl;
+				return false;
 			default:
 				cout <<"**Invalid Option**"<<endl;	
 		}
@@ -32,7 +32,7 @@ int Admin_Util::menu() {
 		 <<"\t\t=========================="<<endl
 		 <<"\t\t1. Create Administrator Account"<<endl
 		 <<"\t\t2. View All Users"<<endl
-		 <<"\t\t5. EXIT ADMIN UTILITY"<<endl
+		 <<"\t\t5. LOGOUT"<<endl
 		 <<"\tChoose an option"<<endl;
 	cin >>option;
 		
