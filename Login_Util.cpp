@@ -74,7 +74,7 @@ void Login_Util::toLoginFile(User* list[], int max) {
 	loginFile.open("login.txt", ios_base::app);
 	
 	for (int i=0; i<max; i++) {
-		loginFile <<endl<<list[i]->loginInfo.getUsername()<<"\t"<<list[i]->loginInfo.getPassword()<<"\t";
+		loginFile <<endl<<encrypt(list[i]->loginInfo.getUsername())<<"\t"<<encrypt(list[i]->loginInfo.getPassword())<<"\t";
 	}
 }
 
@@ -89,9 +89,9 @@ void Login_Util::fromLoginFile(User* list[]) {
 	if (loginFile.is_open()) {
 		while (getline(loginFile, data)) {
 			getline(loginFile, data, '\t');
-			u = data;
+			u = decrypt(data);
 			getline(loginFile, data, '\t');
-			p = data;
+			p = decrypt(data);
 			list[i]->loginInfo.setUsername(u);
 			list[i]->loginInfo.setPassword(p);
 			i++;
@@ -100,4 +100,28 @@ void Login_Util::fromLoginFile(User* list[]) {
 	}
 	else
 		cout <<"**Error: Cannot Open Login File**";
+}
+
+string Login_Util::encrypt(string encpt)
+{
+	char key = '~';
+	
+	for (int i=0; i<encpt.size(); i++)
+	{
+		encpt[i] ^= key;
+	}
+	
+	return encpt;
+}
+
+string Login_Util::decrypt(string decpt)
+{
+	char key = '~';
+	
+	for (int i=0; i<decpt.size(); i++)
+	{
+		decpt[i] ^= key;
+	}
+	
+	return decpt;
 }

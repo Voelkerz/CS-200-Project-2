@@ -20,6 +20,8 @@ class Login_Util {
 		static bool menu(User* [], int, int&);
 		static void toLoginFile(User* [], int);
 		static void fromLoginFile(User* []);
+		static string encrypt(string);
+		static string decrypt(string);
 		virtual void foo()=0;
 };
 #endif
