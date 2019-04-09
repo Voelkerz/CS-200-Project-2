@@ -2,6 +2,7 @@
 // This will be the controlling system for all banker user commands
 #include <iostream>
 using namespace std;
+#include "Banker.h"
 
 #ifndef BANKER_UTIL_H
 #define BANKER_UTIL_H

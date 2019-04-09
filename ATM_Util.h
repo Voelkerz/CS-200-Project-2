@@ -2,6 +2,7 @@
 // This will be the controlling system for all customer user commands
 #include <iostream>
 using namespace std;
+#include "Customer.h"
 
 #ifndef ATM_UTIL_H
 #define ATM_UTIL_H
