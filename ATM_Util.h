@@ -8,7 +8,7 @@ using namespace std;
 #define ATM_UTIL_H
 class ATM_Util {
 	public:
-		static void util_main();
+		static bool util_main();
 		static int menu();
 		virtual void foo()=0;
 };
