@@ -1,16 +1,16 @@
 //Customer.h
+#include "User.h"
+
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
-#include<iostream>
-#include "User.h"
-using namespace std;
-
 class Customer: public User
 {
 	private:
 		string occupation;
 		string address;
 	public:
+		Customer();
+		Customer(string, string, string, string, string, string, string);
 		void setID(string);
 		void setOccupation(string);
 		void setAddress(string);
@@ -18,6 +18,4 @@ class Customer: public User
 		string getAddress();
 		
 };
-
-
 #endif
