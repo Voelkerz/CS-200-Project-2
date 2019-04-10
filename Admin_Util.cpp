@@ -5,11 +5,11 @@
 // MAIN FOR ADMIN SYSTEM		//
 //------------------------------//
 
-bool Admin_Util::util_main(User* userList[], Admin* admListPTR, int max, int &userPos, int &admPos) {
+bool Admin_Util::util_main(User* userList[], Admin* admListPTR, int max, int &userPos, int &admPos, int currentUser) {
 	int option;
 	
 	do {
-		option = Admin_Util::menu();
+		option = Admin_Util::menu(userList, currentUser);
 		switch (option) {
 			case 1: 
 				Admin_Util::createAdmin(admListPTR, max, admPos);
@@ -32,11 +32,12 @@ bool Admin_Util::util_main(User* userList[], Admin* admListPTR, int max, int &us
 // MENU							//
 //------------------------------//
 
-int Admin_Util::menu() {
+int Admin_Util::menu(User* userList[], int currentUser) {
 	int option;
 	
 	system("CLS");
-	cout <<"\t\tAdministrator Utility Menu"<<endl
+	cout <<"\t\tLogged In: "<<userList[currentUser]->getName()<<"\n\n"
+		 <<"\t\tAdministrator Utility Menu"<<endl
 		 <<"\t\t=========================="<<endl
 		 <<"\t\t1. Create Administrator Account"<<endl
 		 <<"\t\t2. View All Users"<<endl
