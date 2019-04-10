@@ -1,10 +1,10 @@
 //User.h
 #include <iostream>
+using namespace std;
 #include "Login.h"
 
 #ifndef USER_H
 #define USER_H
-using namespace std;
 class User
 	{
 		protected:
@@ -20,11 +20,11 @@ class User
 			void setID(string);
 			void setDOB(string);
 			string getName();
+			string getFirstName();
+			string getLastName();
 			string getAccessRights();
 			string getID();
 			string getDOB();
 			Login loginInfo;
-	
 	};
-
 #endif
