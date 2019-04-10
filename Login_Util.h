@@ -16,7 +16,7 @@ class Login_Util {
 							  Customer*, int, int&);
 		static bool menu(User* [], int, int&);
 		static void toLoginFile(string);
-		static void fromLoginFile(User* userList[], int max, int &pos);
+		static void fromLoginFile(User* [], int max, int &pos);
 		virtual void foo()=0;
 };
 #endif
