@@ -1,7 +1,10 @@
 // Login_Util.cpp
 #include "Login_Util.h"
 
-// MAIN for Login Screen
+//------------------------------//
+// MAIN FOR LOGIN SYSTEM		//
+//------------------------------//
+
 void Login_Util::util_main(User* userList[], int userMax, int &userPos, 
 						   Employee* empList[], int empMax, int &empPos, 
 						   Admin* adminList,  int admMax, int &adminPos, 
@@ -31,7 +34,10 @@ void Login_Util::util_main(User* userList[], int userMax, int &userPos,
 	} while(!loggedIn);
 }
 
-// Login Menu Function
+//------------------------------//
+// LOGIN MENU					//
+//------------------------------//
+
 bool Login_Util::menu(User* list[], int max, int &user) {
 	
 	string username, password, u, p;
@@ -58,9 +64,64 @@ bool Login_Util::menu(User* list[], int max, int &user) {
 	return logIn = false;
 }
 
-/////////////////
-// ACCESSORS
+//------------------------------//
+// FUNCTIONS					//
+//------------------------------//
 
-void Login_Util::fromLoginFile(User* list[], int max, int &pos) {
+void Login_Util::toLoginFile(User* list[], int max) {
 	
+	ofstream loginFile;
+	loginFile.open("login.txt", ios_base::app);
+	
+	for (int i=0; i<max; i++) {
+		loginFile <<endl<<encrypt(list[i]->loginInfo.getUsername())<<"\t"<<encrypt(list[i]->loginInfo.getPassword())<<"\t";
+	}
+}
+
+void Login_Util::fromLoginFile(User* list[]) {
+	
+	string data, u, p;
+	int i=0;
+	
+	ifstream loginFile("login.txt");
+	
+	//Give error if file is not open
+	if (loginFile.is_open()) {
+		while (getline(loginFile, data)) {
+			getline(loginFile, data, '\t');
+			u = decrypt(data);
+			getline(loginFile, data, '\t');
+			p = decrypt(data);
+			list[i]->loginInfo.setUsername(u);
+			list[i]->loginInfo.setPassword(p);
+			i++;
+		}
+		loginFile.close();
+	}
+	else
+		cout <<"**Error: Cannot Open Login File**";
+}
+
+string Login_Util::encrypt(string encpt)
+{
+	char key = '~';
+	
+	for (int i=0; i<encpt.size(); i++)
+	{
+		encpt[i] ^= key;
+	}
+	
+	return encpt;
+}
+
+string Login_Util::decrypt(string decpt)
+{
+	char key = '~';
+	
+	for (int i=0; i<decpt.size(); i++)
+	{
+		decpt[i] ^= key;
+	}
+	
+	return decpt;
 }

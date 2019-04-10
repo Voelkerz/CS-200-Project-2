@@ -1,6 +1,10 @@
 // Admin_Util.cpp
 #include "Admin_Util.h"
 
+//------------------------------//
+// MAIN FOR ADMIN SYSTEM		//
+//------------------------------//
+
 bool Admin_Util::util_main(User* userList[], Admin* admListPTR, int max, int &userPos, int &admPos) {
 	int option;
 	
@@ -24,6 +28,10 @@ bool Admin_Util::util_main(User* userList[], Admin* admListPTR, int max, int &us
 	} while (option != 5);
 }
 
+//------------------------------//
+// MENU							//
+//------------------------------//
+
 int Admin_Util::menu() {
 	int option;
 	
@@ -39,7 +47,11 @@ int Admin_Util::menu() {
 	return option;
 }
 
-void Admin_Util::createAdmin(Admin* admPTR, int max, int &admPos) {
+//------------------------------//
+// FUNCTIONS					//
+//------------------------------//
+
+void Admin_Util::createAdmin(Admin* admPTR, int max, int &admPos) {		// Creates Admin Accounts
 	int num;
 	string first, last, id, hireDate;
 	
@@ -76,7 +88,7 @@ void Admin_Util::createAdmin(Admin* admPTR, int max, int &admPos) {
 	}
 }
 
-void Admin_Util::printAllUsers(Admin* admPTR, int max) {	//only prints Admin accounts for now
+void Admin_Util::printAllUsers(Admin* admPTR, int max) {	//Prints a list of all users in system (only admins for now)
 	for (int i=0; i<max; i++)
 	{
 		cout <<"\nName: "<<admPTR->getName()<<endl
