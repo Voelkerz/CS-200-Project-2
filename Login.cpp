@@ -1,21 +1,23 @@
 // Login.cpp
 #include "Login.h"
 
-/////////////////
-// CONSTRUCTOR
+//------------------------------//
+// CONSTRUCTORS					//
+//------------------------------//
 
 Login::Login() {
-	username = "";
-	password = "";
+	setUsername("");
+	setPassword("");
 }
 
 Login::Login(string u, string p) {
-	username = u;
-	password = p;
+	setUsername(u);
+	setPassword(p);
 }
 
-/////////////////
-// MUTATORS
+//------------------------------//
+// MUTATOR FUNCTIONS			//
+//------------------------------//
 
 void Login::setPassword(string p) {
 	password = p;
@@ -25,8 +27,9 @@ void Login::setUsername(string u) {
 	username = u;
 }
 
-/////////////////
-// ACCESSORS
+//------------------------------//
+// ACCESSOR FUNCTIONS			//
+//------------------------------//
 
 string Login::getPassword() {
 	return password;
