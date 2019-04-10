@@ -8,7 +8,7 @@ using namespace std;
 #define BANKER_UTIL_H
 class Banker_Util {
 	public:
-		static void util_main();
+		static bool util_main();
 		static int menu();
 		virtual void foo()=0;
 };
