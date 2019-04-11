@@ -15,9 +15,6 @@ class Login_Util {
 		static void util_main(User* [], int, int&, Employee* [], int, int&, Admin*, int, int&, Banker*, int, int&, Customer*, int, int&);
 		static int menu();
 		static bool login(User* [], int, int&);
-		static void toLoginFile(User* [], int);
-		static void toUserFile(User* [], Employee* [], Customer*, int, int, int);
-		static void fromLoginFile(User* []);
 		static void initializeUsers(User* [], int&, Employee* [], int&,	Admin*, int&, Banker*, int&, Customer*, int&);
 		static string encrypt(string);
 		static string decrypt(string);

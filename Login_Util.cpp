@@ -15,12 +15,12 @@ void Login_Util::util_main(User* userList[], int userMax, int &userPos, Employee
 	do {
 		option = Login_Util::menu();
 		switch (option) {
-			case 1: 	 
+			case 1:  
 				loggedIn = Login_Util::login(userList, userPos, currentUser);
 				
 				if (loggedIn) {
 					if (userList[currentUser]->getAccessRights() == "Admin") {
-						loggedIn = Admin_Util::util_main(userList, adminList, userMax, userPos, adminPos, currentUser);
+						loggedIn = Admin_Util::util_main(currentUser, userList, userMax, userPos, empList, empMax, empPos, adminList, admMax, adminPos, bnkrList, bnkrMax, bnkrPos, custList, custMax, custPos);
 					}
 					else if (userList[currentUser]->getAccessRights() == "Banker") {
 						//loggedIn = Banker_Util::util_main();
@@ -116,83 +116,6 @@ bool Login_Util::login(User* list[], int max, int &user) {
 //----------------------------------------------------------------------------------------------------------------------//
 //												UTILITY FUNCTIONS														//
 //----------------------------------------------------------------------------------------------------------------------//
-
-// Write to all loaded user passwords and usernames to "login.txt"
-// Caution** Use only after fromLoginFile(), or you will wipe the "login.txt" file
-void Login_Util::toLoginFile(User* list[], int userPos) {
-	ofstream loginFile;
-	loginFile.open("login.txt");
-	
-	for (int i=0; i<userPos; i++) {
-		loginFile <<endl<<encrypt(list[i]->getID())<<"\t"<<encrypt(list[i]->loginInfo.getUsername())<<"\t"<<encrypt(list[i]->loginInfo.getPassword())<<"\t";
-	}
-}
-
-// Write all users to "users.txt" for persistent data
-void Login_Util::toUserFile(User* userList[], Employee* empList[], Customer* custList, int userPos, int empPos, int custPos) {
-	ofstream userFile;
-	userFile.open("users.txt");
-	
-	for (int i=0; i<userPos; i++) {
-		// Cycle through entire user list and write to file
-		userFile <<endl<<userList[i]->getAccessRights()<<"\t"<<userList[i]->getFirstName()<<"\t"<<userList[i]->getLastName()<<"\t"<<userList[i]->getID()<<"\t"<<userList[i]->getDOB()<<"\t";
-		
-		// If current user is an Admin, then write these specific attributes to file
-		if (userList[i]->getAccessRights() == "Admin") {
-			for (int j=0; j<empPos; j++) {
-				if (userList[i]->getID() == empList[j]->getID()) {	// Match user ID in both arrays to make sure it is the correct user
-					userFile <<empList[j]->getHireDate()<<"\t"<<empList[j]->getRank()<<"\t"<<empList[j]->getEmploymentType()<<"\t";
-				}
-			}
-		}
-		
-		else if (userList[i]->getAccessRights() == "Banker") {
-			for (int j=0; j<empPos; j++) {
-				if (userList[i]->getID() == empList[j]->getID()) {
-					userFile <<empList[j]->getHireDate()<<"\t"<<empList[j]->getRank()<<"\t"<<empList[j]->getEmploymentType()<<"\t";
-				}
-			}
-		}
-		
-		else if (userList[i]->getAccessRights() == "Customer") {
-			for (int j=0; j<custPos; j++) {
-				if (userList[i]->getID() == custList[j].getID()) {
-					userFile <<custList[j].getOccupation()<<"\t"<<custList[j].getAddress()<<"\t";
-				}
-			}
-		}		 
-	}
-}
-
-// Will load users with their password prior to saving to "login.txt"
-void Login_Util::fromLoginFile(User* list[]) {
-	
-	string data, id, u, p;
-	int i=0;
-	
-	ifstream loginFile("login.txt");
-	
-	if (loginFile.is_open()) {
-		while (getline(loginFile, data)) {
-			getline(loginFile, data, '\t');
-			id = decrypt(data);
-			getline(loginFile, data, '\t');
-			u = decrypt(data);
-			getline(loginFile, data, '\t');
-			p = decrypt(data);
-			if (list[i]->getID() == id) {
-				list[i]->loginInfo.setUsername(u);
-				list[i]->loginInfo.setPassword(p);
-			}
-			i++;
-		}
-		loginFile.close();
-	}
-	//Give error if file is not open
-	else {
-		cout <<"**Error: Cannot Open Login File**";
-	}
-}
 
 // Loads all persistent user file data from "users.txt" and stores it into appropriate arrays on program startup
 void Login_Util::initializeUsers(User* userList[], int &userPos, Employee* empList[], int &empPos, Admin* adminList, int &adminPos, Banker* bnkrList, int &bnkrPos, Customer* custList, int &custPos) {
