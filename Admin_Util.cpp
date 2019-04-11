@@ -15,8 +15,10 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 				Admin_Util::createAdmin(userList, userMax, userPos, empList, empMax, empPos, adminList, admMax, adminPos);
 				break;
 			case 2:
+				Admin_Util::createBanker(userList, userMax, userPos, empList, empMax, empPos, bnkrList, bnkrMax, bnkrPos);
 				break;
 			case 3:
+				Admin_Util::createCustomer(userList, userMax, userPos, custList, custMax, custPos);
 				break;
 			case 4:
 				Admin_Util::printAllUsers(userList, userPos);
@@ -112,6 +114,98 @@ void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Employ
 			adminPos++;
 			userPos++;
 			empPos++;
+		}
+	}
+}
+
+void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Employee* empList[], int empMax, int &empPos, Banker* bnkrList, int bnkrMax, int &bnkrPos) {
+	int num;
+	string username, password, fname, lname, id, dob, hiredate, rank, emptype;
+	
+	if (bnkrPos == bnkrMax || empPos == empMax)
+		cout <<"**Employee Not Added: List Full**"<<endl;
+	else
+	{
+		do
+		{
+			cout <<"How many bankers do you want to add?: ";
+			cin >>num;
+		} while (num < 1 || num > (bnkrMax - bnkrPos));
+			
+		for (int i=0; i<num; i++)
+		{
+			cout <<"\nEnter Username: ";
+			cin >>username;
+			cout <<"Enter Password: ";
+			cin >>password;
+			cout <<"Enter Name: ";
+			cin >>fname>>lname;
+			cout <<"Enter ID: ";
+			cin >>id;
+			cout <<"Enter Date of Birth (DD-Month-YYYY): ";
+			cin >>dob;
+			cout <<"Enter Hire Date (DD-Month-YYYY): ";
+			cin >>hiredate;
+			cout <<"Enter Rank: ";
+			cin >>rank;
+			cout <<"Enter Full/Part: ";
+			cin >>emptype;
+			
+			Banker bnkr(fname, lname, id, dob, hiredate, rank, emptype);
+			bnkr.loginInfo.setUsername(username);
+			bnkr.loginInfo.setPassword(password);
+				
+			bnkrList[bnkrPos] = bnkr;
+			userList[userPos] = &bnkrList[bnkrPos];
+			empList[empPos] = &bnkrList[bnkrPos];
+			
+			bnkrPos++;
+			userPos++;
+			empPos++;
+		}
+	}
+}
+
+void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Customer* custList, int custMax, int &custPos) {
+	int num;
+	string username, password, fname, lname, id, dob, occupation, address;
+	
+	if (custPos == custMax)
+		cout <<"**Customer Not Added: List Full**"<<endl;
+	else
+	{
+		do
+		{
+			cout <<"How many customers do you want to add?: ";
+			cin >>num;
+		} while (num < 1 || num > (custMax - custPos));
+			
+		for (int i=0; i<num; i++)
+		{
+			cout <<"\nEnter Username: ";
+			cin >>username;
+			cout <<"Enter Password: ";
+			cin >>password;
+			cout <<"Enter Name: ";
+			cin >>fname>>lname;
+			cout <<"Enter ID: ";
+			cin >>id;
+			cout <<"Enter Date of Birth (DD-Month-YYYY): ";
+			cin >>dob;
+			cout <<"Enter Occupation: ";
+			cin >>occupation;
+			cout <<"Enter Address: ";
+			cin >>address;
+			
+			Customer cust(fname, lname, id, dob, occupation, address);
+			cust.loginInfo.setUsername(username);
+			cust.loginInfo.setPassword(password);
+				
+			custList[custPos] = cust;
+			userList[userPos] = &custList[custPos];
+			
+			custPos++;
+			userPos++;
 		}
 	}
 }

@@ -26,7 +26,7 @@ void Login_Util::util_main(User* userList[], int userMax, int &userPos, Employee
 						//loggedIn = Banker_Util::util_main();
 					}
 					else if (userList[currentUser]->getAccessRights() == "Customer") {
-						//loggedIn = ATM_Util::util_main();
+						loggedIn = ATM_Util::util_main();
 					}
 					else {
 						cout <<"\n**Error: Access Rights Not Set**"<<endl;

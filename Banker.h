@@ -7,6 +7,7 @@ class Banker: public Employee
 {
 	public:
 		Banker();
+		Banker(string, string, string, string, string, string, string);
 		Banker(string, string, string, string, string, string, string, string);
 		void setID(string i);
 };

@@ -9,6 +9,15 @@ Customer::Customer() {
 	setAccessRights("Customer");
 }
 
+Customer::Customer(string f, string l, string i, string d, string o, string ad) {
+	setAccessRights("Customer");
+	setName(f, l);
+	setID(i);
+	setDOB(d);
+	setOccupation(o);
+	setAddress(ad);
+}
+
 Customer::Customer(string a, string f, string l, string i, string d, string o, string ad) {
 	setAccessRights(a);
 	setName(f, l);

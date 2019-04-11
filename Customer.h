@@ -10,6 +10,7 @@ class Customer: public User
 		string address;
 	public:
 		Customer();
+		Customer(string, string, string, string, string, string);
 		Customer(string, string, string, string, string, string, string);
 		void setID(string);
 		void setOccupation(string);
