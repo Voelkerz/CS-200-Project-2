@@ -26,7 +26,14 @@ Customer::Customer(string a, string f, string l, string i, string d, string o, s
 	setOccupation(o);
 	setAddress(ad);
 }
-
+void Customer::print()
+{
+	cout << fname << lname << "\n";
+	cout << dob << "\n";
+	cout << id << "\n";
+	cout << occupation << "\n";
+	cout << address << "\n";
+};
 //------------------------------//
 // MUTATOR FUNCTIONS			//
 //------------------------------//
