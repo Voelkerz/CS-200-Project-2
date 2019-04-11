@@ -12,7 +12,13 @@ User::User() {
 //------------------------------//
 // MUTATOR FUNCTIONS			//
 //------------------------------//
-
+void User::print()
+{
+	cout << fname << " " << lname << "\n";
+	cout << accessRights << "\n";
+	cout << id << "\n";
+	cout << dob << "\n";
+};
 void User::setName(string f, string l)
 {
 	fname = f;
