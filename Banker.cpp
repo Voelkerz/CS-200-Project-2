@@ -28,7 +28,15 @@ Banker::Banker(string a, string f, string l, string i, string d, string h, strin
 	setRank(r);
 	setEmploymentType(e);
 }
-
+void Banker::print()
+{
+	cout << fname << lname << "\n";
+	cout << dob << "\n";
+	cout << id << "\n";
+	cout << hireDate << "\n";
+	cout << rank << "\n";
+	cout << employmentType << "\n";
+};
 //------------------------------//
 // MUTATOR FUNCTIONS			//
 //------------------------------//
