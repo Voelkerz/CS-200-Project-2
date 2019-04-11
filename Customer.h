@@ -12,6 +12,7 @@ class Customer: public User
 		Customer();
 		Customer(string, string, string, string, string, string);
 		Customer(string, string, string, string, string, string, string);
+		void print();
 		void setID(string);
 		void setOccupation(string);
 		void setAddress(string);
