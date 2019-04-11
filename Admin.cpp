@@ -9,6 +9,16 @@ Admin::Admin() {
 	setAccessRights("Admin");
 }
 
+Admin::Admin(string f, string l, string i, string d, string h, string r, string e) {
+	setAccessRights("Admin");
+	setName(f, l);
+	setID(i);
+	setDOB(d);
+	setHireDate(h);
+	setRank(r);
+	setEmploymentType(e);
+}
+
 Admin::Admin(string a, string f, string l, string i, string d, string h, string r, string e) {
 	setAccessRights(a);
 	setName(f, l);
