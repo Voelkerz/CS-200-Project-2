@@ -10,6 +10,7 @@ class Employee: public User
 		string rank;
 		string employmentType;
 	public:
+		void print();
 		void setHireDate(string);
 		void setRank(string);
 		void setEmploymentType(string);
