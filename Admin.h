@@ -7,9 +7,9 @@ class Admin: public Employee
 {
 	public:
 		Admin();
-		void print();
 		Admin(string, string, string, string, string, string, string);
 		Admin(string, string, string, string, string, string, string, string);
+		void print();
 		void setID(string i);
 };
 #endif
