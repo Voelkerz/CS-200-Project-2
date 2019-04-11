@@ -27,7 +27,16 @@ Admin::Admin(string a, string f, string l, string i, string d, string h, string 
 	setHireDate(h);
 	setRank(r);
 	setEmploymentType(e);
-}	
+}
+void Admin::print()
+{
+	cout << fname << " " << lname << "\n";
+	cout << dob << "\n";
+	cout << id << "\n";
+	cout << hireDate << "\n";
+	cout << rank << "\n";
+	cout << employmentType << "\n";
+};
 
 //------------------------------//
 // MUTATOR FUNCTIONS			//
