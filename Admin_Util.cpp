@@ -24,6 +24,7 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 				Admin_Util::printAllUsers(userList, userPos);
 				break;
 			case 5:
+				Admin_Util::viewUser(userList, userPos);
 				break;
 			case 6:
 				break;
@@ -53,10 +54,10 @@ int Admin_Util::menu(User* userList[], int currentUser) {
 		 <<"\t\tAdministrator Utility Menu"<<"\n"
 		 <<"\t\t=========================="<<"\n"
 		 <<"\t\t1. Create Administrator Account"<<"\n"
-		 <<"\t\t2. Create Banker Account (Inactive)"<<"\n"
-		 <<"\t\t3. Create Customer Account (Inactive)"<<"\n"
+		 <<"\t\t2. Create Banker Account"<<"\n"
+		 <<"\t\t3. Create Customer Account"<<"\n"
 		 <<"\t\t4. View All Users"<<"\n"
-		 <<"\t\t5. View User (Inactive)"<<"\n"
+		 <<"\t\t5. View User"<<"\n"
 		 <<"\t\t6. Enter Audit Mode (Inactive)"<<"\n"
 		 <<"\t\t7. LOGOUT"<<"\n"
 		 <<"\tChoose an option"<<endl;
@@ -210,7 +211,7 @@ void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Cus
 	}
 }
 
-void Admin_Util::printAllUsers(User* userList[], int userPos) {	//Prints a list of all users in system (only admins for now)
+void Admin_Util::printAllUsers(User* userList[], int userPos) {
 	for (int i=0; i<userPos; i++)
 	{
 		//userList[i]->print();
@@ -220,6 +221,23 @@ void Admin_Util::printAllUsers(User* userList[], int userPos) {	//Prints a list 
 			 <<"DOB: "<<userList[i]->getDOB()<<"\n"
 			 <<"Access Rights: "<<userList[i]->getAccessRights()<<"\n"<<endl;
 	}
+}
+
+void Admin_Util::viewUser(User* userList[], int userPos) {
+	string id;
+	
+	cout <<"Enter the ID# of the user to view: "<<endl;
+	cin >>id;
+	
+	for (int i=0; i<userPos; i++)
+		if (userList[i]->getID() == id) {
+			//userList[i]->print();
+			
+			cout <<"\nName: "<<userList[i]->getName()<<"\n"
+				 <<"ID: "<<userList[i]->getID()<<"\n"
+				 <<"DOB: "<<userList[i]->getDOB()<<"\n"
+				 <<"Access Rights: "<<userList[i]->getAccessRights()<<"\n"<<endl;
+		}
 }
 
 // Write to all loaded user passwords and usernames to "login.txt"

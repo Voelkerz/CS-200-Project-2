@@ -17,6 +17,7 @@ class Admin_Util {
 		static void createBanker(User* [], int,  int&, Employee* [], int, int&, Banker*, int, int&);
 		static void createCustomer(User* [], int,  int&, Customer*, int, int&);
 		static void printAllUsers(User* [], int);
+		static void viewUser(User* [], int);
 		static void toLoginFile(User* [], int);
 		static void toUserFile(User* [], Employee* [], Customer*, int, int, int);
 		static void fromLoginFile(User* []);
