@@ -9,6 +9,7 @@ class Banker: public Employee
 		Banker();
 		Banker(string, string, string, string, string, string, string);
 		Banker(string, string, string, string, string, string, string, string);
+		void print();
 		void setID(string i);
 };
 #endif
