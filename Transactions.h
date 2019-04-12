@@ -1,3 +1,4 @@
+
 //Transactions.h
 #include<iostream>
 using namespace std;
@@ -9,10 +10,11 @@ class Transactions
 {
 	public:
 		Transactions();
-		double deposit(double);
-		double withdraw(double);
+		static void deposit(User*, int, int, string , double);
+		static void withdraw((User*, int, int, string , double);)
 		void toTransactionFile();
 		void fromTransactionFile();
+		Accounts acc;
 		
 	private:
 		double transactionID;
