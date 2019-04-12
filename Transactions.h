@@ -10,8 +10,8 @@ class Transactions
 {
 	public:
 		Transactions();
-		static void deposit(User*, int, int, string , double);
-		static void withdraw((User*, int, int, string , double);)
+		static void deposit(User* [], int, int, string , double);
+		static void withdraw((User* [], int, int, string , double);)
 		void toTransactionFile();
 		void fromTransactionFile();
 		Accounts acc;
