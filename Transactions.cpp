@@ -9,15 +9,44 @@ Transactions::Transactions()
 }
 
 //mutators
-double Transactions::deposit(double a)
+void Transactions::deposit(User* userList, int userPos, int max, string customerID, double a)
 {
-	amount = a;
+	double balance;
+	amount = a
+	for (int i = 0; i < max; i++ )
+	{
+		if (customerID == userList[i]->getID)
+			{
+				userList[i]->acc.getBalance() = balance;
+				balance = balance + amount;
+				userList[i]->acc.setBalance(balance);
+			};
+	};
 }
 
-double Transactions::withdraw(double am)
+void Transactions::withdraw(User* userList, int userPos, int max, string customerID, double a)
 {
-	amount = am;
+	double balance;
+	amount = a
+	for (int i = 0; i < max; i++ )
+	{
+		if (customerID == userList[i]->getID)
+			{
+				userList[i]->acc.getBalance() = balance;
+				if (withdraw > balance)
+				{
+					cout << "ERROR: NOT ENOUGH FUNDS";
+				};
+				else
+				{
+					balance = balance - withdraw;
+					userList[i]->acc.setBalance(balance);
+				};
+			};
+	};
 }
+
+
 
 //accessors
 void Transactions::toTransactionFile()
