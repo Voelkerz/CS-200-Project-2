@@ -9,7 +9,7 @@ Transactions::Transactions()
 }
 
 //mutators
-void Transactions::deposit(User* userList, int userPos, int max, string customerID, double a)
+void Transactions::deposit(User* userList[], int userPos, int max, string customerID, double a)
 {
 	double balance;
 	amount = a
@@ -24,7 +24,7 @@ void Transactions::deposit(User* userList, int userPos, int max, string customer
 	};
 }
 
-void Transactions::withdraw(User* userList, int userPos, int max, string customerID, double a)
+void Transactions::withdraw(User* userList[], int userPos, int max, string customerID, double a)
 {
 	double balance;
 	amount = a
