@@ -14,7 +14,6 @@ class Transactions
 		static void deposit(Customer*, int, string, string, double);
 		static void withdraw(Customer*, int, string, string, double);
 		static void toTransactionFile(Customer*, int, string, string, double);
-		static void fromTransactionFile();
 		static string encrypt(string);
 		static string decrypt(string);
 		

@@ -67,10 +67,6 @@ void Transactions::toTransactionFile(Customer* custList, int custPos, string id,
 	transFile.close();
 }
 
-void Transactions::fromTransactionFile() {
-	
-}
-
 string Transactions::encrypt(string encpt) {
 /*	char key = 'a';
 	

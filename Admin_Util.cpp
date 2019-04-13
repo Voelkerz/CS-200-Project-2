@@ -245,7 +245,7 @@ void Admin_Util::audit(Customer* custList, int custPos) {
 			 <<"\t\t=================="<<"\n"
 			 <<"\t\t1. View Customer Account Info"<<"\n"
 			 <<"\t\t2. List Customers"<<"\n"
-			 <<"\t\t3. View Transaction Log (inactive)"<<"\n"
+			 <<"\t\t3. View Transaction Log"<<"\n"
 			 <<"\t\t4. Return to Admin Menu"<<"\n"
 			 <<"\tChoose an option"<<endl;
 		cin >>option;
@@ -261,10 +261,11 @@ void Admin_Util::audit(Customer* custList, int custPos) {
 				Audit::printCustomerList(custList, custPos);
 				break;
 			case 3:
+				Audit::fullTransactionHistory(custList, custPos);
 				break;
 			case 4:
 				cout <<"**Returning to Admin Menu**"<<endl;
-				break;
+				return;
 			default:
 				cout <<"**Invalid Option**"<<endl;	
 		}

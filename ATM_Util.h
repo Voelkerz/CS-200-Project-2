@@ -14,11 +14,15 @@ class ATM_Util
 		ATM_Util();
 		static bool util_main(User* [], int, Customer*, int, int);
 		static int menu(User* [], int);
-		static void transfer();
 		static void createAccount(Customer*, int, int);
 		static void viewAccountInfo(Customer*, int);
-		static void customerTransHistory();
+		static void customerTransHistory(Customer*, int);
 		static void changePassword(User* [], int, int);
+		static void depositFunds(Customer*, int, int);
+		static void withdrawFunds(Customer*, int, int);
+		static void transferFunds();
+		static string encrypt(string);
+		static string decrypt(string);
 		virtual void foo() = 0;
 };
 #endif
