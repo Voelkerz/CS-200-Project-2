@@ -1,5 +1,7 @@
 //Transactions.h
-#include<iostream>
+#include <iostream>
+#include <fstream>
+#include <sstream> //for string conversion
 using namespace std;
 #include "Customer.h"
 
@@ -9,10 +11,12 @@ using namespace std;
 class Transactions
 {
 	public:
-		static void deposit(Customer*, int, int, string , double);
-		static void withdraw(Customer*, int, int, string , double);
-		static void toTransactionFile();
+		static void deposit(Customer*, int, string, string, double);
+		static void withdraw(Customer*, int, string, string, double);
+		static void toTransactionFile(Customer*, int, string, string, double);
 		static void fromTransactionFile();
+		static string encrypt(string);
+		static string decrypt(string);
 		
 	private:
 		double transactionID;

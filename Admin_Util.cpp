@@ -2,7 +2,7 @@
 #include "Admin_Util.h"
 
 //----------------------------------------------------------------------------------------------------------------------//
-//	MAIN() FOR ADMIN UTILITY												//
+//												MAIN() FOR ADMIN UTILITY												//
 //----------------------------------------------------------------------------------------------------------------------//
 
 bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &userPos, Admin* adminList,  int admMax, int &adminPos, Banker* bnkrList, int bnkrMax, int &bnkrPos, Customer* custList, int custMax, int &custPos) {
@@ -31,9 +31,6 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 				break;
 			case 7:
 				cout <<"**Logging Off**"<<endl;
-				Admin_Util::fromLoginFile(userList, userPos);
-				Admin_Util::toLoginFile(userList, userPos);
-				Admin_Util::toUserFile(userList, userPos, custList, custPos, adminList, adminPos, bnkrList, bnkrPos);
 				return false;
 			default:
 				cout <<"**Invalid Option**"<<endl;	
@@ -114,6 +111,10 @@ void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Admin*
 			
 			adminPos++;
 			userPos++;
+			
+			// Write username and password into file
+			Admin_Util::fromLoginFile(userList, userPos);
+			Admin_Util::toLoginFile(userList, userPos);
 		}
 	}
 }
@@ -160,6 +161,10 @@ void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Banke
 			
 			bnkrPos++;
 			userPos++;
+			
+			// Write username and password into file
+			Admin_Util::fromLoginFile(userList, userPos);
+			Admin_Util::toLoginFile(userList, userPos);
 		}
 	}
 }
@@ -172,14 +177,12 @@ void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Cus
 		cout <<"**Customer Not Added: List Full**"<<endl;
 	else
 	{
-		do
-		{
+		do {
 			cout <<"How many customers do you want to add?: ";
 			cin >>num;
 		} while (num < 1 || num > (custMax - custPos));
 			
-		for (int i=0; i<num; i++)
-		{
+		for (int i=0; i<num; i++) {
 			cout <<"\nEnter Username: ";
 			cin >>username;
 			cout <<"Enter Password: ";
@@ -204,6 +207,10 @@ void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Cus
 			
 			custPos++;
 			userPos++;
+			
+			// Write username and password into file
+			Admin_Util::fromLoginFile(userList, userPos);
+			Admin_Util::toLoginFile(userList, userPos);
 		}
 	}
 }
@@ -213,6 +220,7 @@ void Admin_Util::printAllUsers(User* userList[], int userPos) {
 	{
 		userList[i]->print();
 	}
+	cout <<"======================="<<endl;
 }
 
 void Admin_Util::viewUser(User* userList[], int userPos) {
@@ -310,6 +318,9 @@ void Admin_Util::fromLoginFile(User* list[], int userPos) {
 
 // Write all users to "users.txt" for persistent data
 void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, int custPos, Admin* adminList, int adminPos, Banker* bnkrList, int bnkrPos) {
+	
+	ostringstream convert; //for string conversion
+	string converted; //for string conversion
 	ofstream userFile;
 	userFile.open("users.txt");
 	
@@ -338,6 +349,15 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 			for (int j=0; j<custPos; j++) {
 				if (userList[i]->getID() == custList[j].getID()) {
 					userFile <<encrypt(custList[j].getOccupation())<<"\t"<<encrypt(custList[j].getAddress())<<"\t";
+					for (int h=0; h<2; h++) {
+						userFile <<encrypt(custList[j].acc[h].getAccountNumber())<<"\t"<<encrypt(custList[j].acc[h].getAccountType())<<"\t";
+						
+						//Converting double to a string and encrypting into file
+						convert << custList[j].acc[h].getBalance();
+						converted = convert.str();
+						userFile <<encrypt(converted)<<"\t";
+						convert.str("");
+					}
 				}
 			}
 		}		 

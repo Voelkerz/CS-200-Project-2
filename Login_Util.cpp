@@ -19,12 +19,15 @@ void Login_Util::util_main(User* userList[], int userMax, int &userPos, Admin* a
 	if (loggedIn) {
 		if (userList[currentUser]->getAccessRights() == "Admin") {
 			loggedIn = Admin_Util::util_main(currentUser, userList, userMax, userPos, adminList, admMax, adminPos, bnkrList, bnkrMax, bnkrPos, custList, custMax, custPos);
+			Admin_Util::toUserFile(userList, userPos, custList, custPos, adminList, adminPos, bnkrList, bnkrPos);
 		}
 		else if (userList[currentUser]->getAccessRights() == "Banker") {
-			loggedIn = Banker_Util::menu(currentUser, userList, userMax, userPos, custList, custMax);
+			loggedIn = Banker_Util::menu(currentUser, userList, userMax, userPos, custList, custPos);
+			Admin_Util::toUserFile(userList, userPos, custList, custPos, adminList, adminPos, bnkrList, bnkrPos);
 		}
 		else if (userList[currentUser]->getAccessRights() == "Customer") {
 			loggedIn = ATM_Util::util_main(userList, userPos, custList, custPos, currentUser);
+			Admin_Util::toUserFile(userList, userPos, custList, custPos, adminList, adminPos, bnkrList, bnkrPos);
 		}
 		else {
 			cout <<"\n**Error: Access Rights Not Set**"<<endl;
@@ -89,7 +92,9 @@ bool Login_Util::login(User* list[], int max, int &user) {
 // Loads all persistent user file data from "users.txt" and stores it into appropriate arrays on program startup
 void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminList, int &adminPos, Banker* bnkrList, int &bnkrPos, Customer* custList, int &custPos) {
 	
-	string data, access, fname, lname, id, dob, occupation, address, hiredate, rank, emptype;
+	string data, access, fname, lname, id, dob, occupation, address, hiredate, rank, emptype, acc1Num, acc1Type, acc1Bal, acc2Num, acc2Type, acc2Bal;
+	double convBal1, convBal2; //for post conversion of account balances
+
 	userPos=0;
 	adminPos=0;
 	bnkrPos=0;
@@ -150,8 +155,24 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminLis
 				occupation = decrypt(data);
 				getline(userFile, data, '\t');
 				address = decrypt(data);
+				getline(userFile, data, '\t');
+				acc1Num = decrypt(data);
+				getline(userFile, data, '\t');
+				acc1Type = decrypt(data);
+				getline(userFile, data, '\t');
+				acc1Bal = decrypt(data);
+				getline(userFile, data, '\t');
+				acc2Num = decrypt(data);
+				getline(userFile, data, '\t');
+				acc2Type = decrypt(data);
+				getline(userFile, data, '\t');
+				acc2Bal = decrypt(data);
 				
-				Customer cust(access, fname, lname, id, dob, occupation, address);
+				//Converting string to double
+				istringstream(acc1Bal) >> convBal1;
+				istringstream(acc2Bal) >> convBal2;
+				
+				Customer cust(access, fname, lname, id, dob, occupation, address, acc1Num, acc1Type, convBal1, acc2Num, acc2Type, convBal2);
 				
 				custList[custPos] = cust;
 				userList[userPos] = &custList[custPos];

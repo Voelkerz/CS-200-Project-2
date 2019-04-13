@@ -2,6 +2,7 @@
 // This will be the controlling system for all Login functionality
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 #include "Login.h"
 #include "Admin_Util.h"

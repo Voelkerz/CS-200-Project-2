@@ -1,4 +1,4 @@
 
 Admin	Root	Admin	6785A	00-XXX-0000	9-Apr-2019	Root	Full-Time	
 Banker	Test	Banker	6743B	00-XXX-0000	13-Apr-2019	Tester	Full-Time	
-Customer	Test	Customer	3285C	00-XXX-0000	Tester	XXX	
+Customer	Test	Customer	3285C	00-XXX-000	Tester	Null	53345	Checking	435.45	Null	Null	0	

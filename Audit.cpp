@@ -16,8 +16,9 @@ void Audit::printCustomerAccount(Customer* custList, int custPos, string id) {
 					 <<"\tAccount "<<j+1<<":"<<"\n"
 					 <<"\tAccount Number: "<<custList[i].acc[j].getAccountNumber()<<"\n"
 					 <<"\tAccount Type: "<<custList[i].acc[j].getAccountType()<<"\n"
-					 <<"\tAccount Balance: "<<custList[i].acc[j].getBalance()<<endl;
+					 <<"\tAccount Balance: $"<<custList[i].acc[j].getBalance()<<endl;
 			}
+			cout <<"======================="<<endl;
 			break;
 		}
 		cout <<"**Error: Customer ID Not Found**"<<endl;

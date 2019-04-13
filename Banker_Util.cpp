@@ -5,11 +5,11 @@ Banker_Util::Banker_Util()
 	
 }
 
-bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userPos, Customer* custList, int maxCust)
+bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userPos, Customer* custList, int custPos)
 {
 	int option;
 	double amount;
-	string password, id, id2;
+	string password, id, id2, accNum;
 	do {
 	system("CLS");
 	cout << "\t\tBanker Utility\n"
@@ -37,7 +37,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			system("CLS");
 			cout << "Enter the id of the customer: ";
 			cin >> id;
-			for (int i = 0; i < maxCust; i++)
+			for (int i = 0; i < custPos; i++)
 			{
 				if (custList[i].getID() == id)
 					{
@@ -45,7 +45,8 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 							 << "==================================\n"
 							 << "Enter the deposit amount: ";
 						cin >> amount;
-						Transactions::deposit(custList, userPos, userMax, id, amount);
+						accNum = custList[i].acc[0].getAccountNumber();
+						Transactions::deposit(custList, custPos, id, accNum, amount);
 						cout << "\nTransaction succesful"
 						 	 << "\nAccount Balance: " << custList[i].acc[0].getBalance();
 					};
@@ -56,7 +57,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			system("CLS");
 			cout << "Enter the id of the customer: ";
 			cin >> id;
-			for (int i = 0; i < maxCust; i++)
+			for (int i = 0; i < custPos; i++)
 			{
 				if (custList[i].getID() == id)
 				{
@@ -70,7 +71,8 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 					};
 					else
 					{*/
-					Transactions::withdraw(custList, userPos, maxCust, id, amount);
+					accNum = custList[i].acc[0].getAccountNumber();
+					Transactions::withdraw(custList, custPos, id, accNum, amount);
 					cout << "\nTransaction succesful"
 						 << "\nAccount Balance: " << custList[i].acc[0].getBalance();
 					//};
@@ -86,7 +88,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			cin >> amount;
 			cout << "\nEnter the id of the customer that is receiving the funds: ";
 			cin >> id2;
-			for (int i = 0; i < maxCust; i++)
+			for (int i = 0; i < custPos; i++)
 			{
 				if (custList[i].getID() == id)
 				{
@@ -96,15 +98,17 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 					}
 					else
 					{
-						Transactions::withdraw(custList, userPos, maxCust, id, amount);
+						accNum = custList[i].acc[0].getAccountNumber();
+						Transactions::withdraw(custList, custPos, id, accNum, amount);
 					};
 				};
 			};
-			for (int i = 0; i < maxCust; i++)
+			for (int i = 0; i < custPos; i++)
 			{
 				if (custList[i].getID() == id2)
 				{
-					Transactions::deposit(custList, userPos, maxCust, id2, amount);
+					accNum = custList[i].acc[0].getAccountNumber();
+					Transactions::deposit(custList, custPos, id2, accNum, amount);
 				};
 			};
 			cout << "\nTransfer Succesful";

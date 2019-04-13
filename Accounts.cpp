@@ -6,7 +6,7 @@ Accounts::Accounts()
 {
 	setAccountNumber("Null");
 	setAccountType("Null");
-	setBalance(0.0);
+	setBalance(0);
 }
  
 //mutators

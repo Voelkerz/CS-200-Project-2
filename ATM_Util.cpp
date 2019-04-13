@@ -2,24 +2,34 @@
 #include "ATM_Util.h"
 
 bool ATM_Util::util_main(User* userList[], int userPos, Customer* custList, int custPos, int currentUser) {
-	int option;
+	int option, currentCust;
+	double amount;
+	
+	for (int i=0; i<custPos; i++) {
+		if (userList[currentUser]->getID() == custList[i].getID()) {
+			currentCust = i;
+		}
+	}
 	
 	do {	
 		option = ATM_Util::menu(userList, currentUser);
 		switch (option) {
 			case 1:
-				ATM_Util::viewAccountInfo(userList, custList, custPos, currentUser);
+				ATM_Util::createAccount(custList, custPos, currentCust);
 				break;
 			case 2:
+				ATM_Util::viewAccountInfo(custList, currentCust);
 				break;
 			case 3:
 				break;
 			case 4:
 				break;
 			case 5:
-				ATM_Util::changePassword(userList, userPos, currentUser);
 				break;
 			case 6:
+				ATM_Util::changePassword(userList, userPos, currentUser);
+				break;
+			case 7:
 				cout <<"**Logging Off**"<<endl;
 				return false;
 			default:
@@ -27,7 +37,7 @@ bool ATM_Util::util_main(User* userList[], int userPos, Customer* custList, int 
 		}
 		
 		system("PAUSE");
-	} while (option != 6);
+	} while (option != 7);
 }
 
 int ATM_Util::menu(User* userList[], int currentUser) {
@@ -37,51 +47,109 @@ int ATM_Util::menu(User* userList[], int currentUser) {
 	cout <<"\t\tLogged In: "<<userList[currentUser]->getName()<<"\n\n"
 		 <<"\t\t\tATM Menu"<<"\n"
 		 <<"\t\t=========================="<<"\n"
-		 <<"\t\t1. View Account Info"<<"\n"
-		 <<"\t\t2. Deposit Funds"<<"\n"
-		 <<"\t\t3. Withdraw Funds"<<"\n"
-		 <<"\t\t4. View Transaction History (inactive)"<<"\n"
-		 <<"\t\t5. Change Password"<<"\n"
-		 <<"\t\t6. LOGOUT"<<"\n"
+		 <<"\t\t1. Create New Account"<<"\n"
+		 <<"\t\t2. View Account Info"<<"\n"
+		 <<"\t\t3. Deposit Funds"<<"\n"
+		 <<"\t\t4. Withdraw Funds"<<"\n"
+		 <<"\t\t5. View Transaction History (inactive)"<<"\n"
+		 <<"\t\t6. Change Password"<<"\n"
+		 <<"\t\t7. LOGOUT"<<"\n"
 		 <<"\tChoose an option"<<endl;
 	cin >>option;
 		
 	return option;
 }
 
-int ATM_Util::transfer() {
+void ATM_Util::transfer() {
 	
 }
 
-int ATM_Util::viewBalance() {
+void ATM_Util::createAccount(Customer* custList, int custPos, int currentCust) {
 	
-}
-
-int ATM_Util::viewAccountInfo(User* userList[], Customer* custList, int custPos, int currentUser) {
+	int option;
+	double amount;
+	string num;
+	string id = custList[currentCust].getID();
 	
-	int id;
 	
-	for (int i=0; i<custPos; i++) {
-		if (userList[currentUser]->getID() == custList[i].getID()) {
-			id = i;
+	do {	
+		system("CLS");
+		cout <<"\t\tNew Account Creation"<<"\n"
+			 <<"\t\t===================="<<"\n"
+			 <<"\t\t1. Create Checking Account (Limit 1)"<<"\n"
+			 <<"\t\t2. Create Savings Account (Limit 1)"<<"\n"
+			 <<"\t\t3. RETURN"<<"\n"
+			 <<"\tChoose an option"<<endl;
+		cin >>option;
+	
+		switch (option) {
+			case 1: 
+				for (int i=0; i<2; i++) {
+					if (custList[currentCust].acc[i].getAccountType() == "Checking") {
+						cout <<"**Error: A Checking Account Already Exists**"<<endl;
+						break;
+					}
+					else if (custList[currentCust].acc[i].getAccountType() == "Null") {
+						cout <<"Enter Account Number (5 digit #): "<<endl;
+						cin >>num;
+						cout <<"Enter Initial Balance to Deposit: "<<endl;
+						cin >>amount;
+						
+						custList[currentCust].acc[i].setAccountType("Checking");
+						custList[currentCust].acc[i].setAccountNumber(num);
+						Transactions::deposit(custList, custPos, id, num, amount);
+						break;
+					}
+				}
+				break;
+			case 2:
+				for (int i=0; i<2; i++) {
+					if (custList[currentCust].acc[i].getAccountType() == "Savings") {
+						cout <<"**Error: A Savings Account Already Exists**"<<endl;
+						break;
+					}
+					else if (custList[currentCust].acc[i].getAccountType() == "Null") {
+						cout <<"Enter Account Number (5 digit #): "<<endl;
+						cin >>num;
+						cout <<"Enter Initial Balance to Deposit: "<<endl;
+						cin >>amount;
+						
+						custList[currentCust].acc[i].setAccountType("Savings");
+						custList[currentCust].acc[i].setAccountNumber(num);
+						Transactions::deposit(custList, custPos, id, num, amount);
+						break;
+					}
+				}
+				break;
+			case 3:
+				cout <<"**Returning to Main Menu**"<<endl;
+				break;
+			default:
+				cout <<"**Invalid Option**"<<endl;	
 		}
-	}
+		
+		system("PAUSE");
+	} while (option != 3);
+}
+
+void ATM_Util::viewAccountInfo(Customer* custList, int currentCust) {
 	
-	cout <<"\tName: "<<custList[id].getName()<<"\n"
-		 <<"\tID: "<<custList[id].getID()<<endl;
+	custList[currentCust].print();
+	cout <<endl;
 		 
 	for (int i=0; i<2; i++) {
-		if (custList[id].acc[i].getAccountType() != "Null") {
+		if (custList[currentCust].acc[i].getAccountType() != "Null") {
 			cout <<"\t\t====================="<<"\n"
-				 <<"\t\tAccount "<<i+1<<":"<<"\n"
-				 <<"\t\tAccount Number: "<<custList[id].acc[i].getAccountNumber()<<"\n"
-				 <<"\t\tAccount Type: "<<custList[id].acc[i].getAccountType()<<"\n"
-				 <<"\t\tAccount Balance: "<<custList[id].acc[i].getBalance()<<endl;
+				 <<"\t\t[Account "<<i+1<<"]"<<"\n"
+				 <<"\t\tAccount Number: "<<custList[currentCust].acc[i].getAccountNumber()<<"\n"
+				 <<"\t\tAccount Type: "<<custList[currentCust].acc[i].getAccountType()<<"\n"
+				 <<"\t\tAccount Balance: $"<<custList[currentCust].acc[i].getBalance()<<endl;
 		}
 	}
+	cout <<"\t\t====================="<<endl;
 }
 
-string ATM_Util::customerTransHistory() {
+void ATM_Util::customerTransHistory() {
 	
 }
 

@@ -12,7 +12,7 @@ class Customer: public User
 	public:
 		Customer();
 		Customer(string, string, string, string, string, string);
-		Customer(string, string, string, string, string, string, string);
+		Customer(string, string, string, string, string, string, string, string, string, double, string, string, double);
 		void print();
 		void setID(string);
 		void setOccupation(string);

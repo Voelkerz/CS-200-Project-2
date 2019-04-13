@@ -18,13 +18,19 @@ Customer::Customer(string f, string l, string i, string d, string o, string ad) 
 	setAddress(ad);
 }
 
-Customer::Customer(string a, string f, string l, string i, string d, string o, string ad) {
+Customer::Customer(string a, string f, string l, string i, string d, string o, string ad, string acc1Num, string acc1Type, double acc1Bal, string acc2Num, string acc2Type, double acc2Bal) {
 	setAccessRights(a);
 	setName(f, l);
 	id = i;
 	setDOB(d);
 	setOccupation(o);
 	setAddress(ad);
+	acc[0].setAccountNumber(acc1Num);
+	acc[0].setAccountType(acc1Type);
+	acc[0].setBalance(acc1Bal);
+	acc[1].setAccountNumber(acc2Num);
+	acc[1].setAccountType(acc2Type);
+	acc[1].setBalance(acc2Bal);
 }
 
 void Customer::print() {

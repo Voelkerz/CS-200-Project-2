@@ -2,6 +2,7 @@
 // This will be the controlling system for all administrator user commands
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 #include "Admin.h"
 #include "Audit.h"
