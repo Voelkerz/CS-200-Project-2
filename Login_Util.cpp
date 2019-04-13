@@ -102,18 +102,18 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminLis
 			getline(userFile, data, '\t');
 			lname = data;
 			getline(userFile, data, '\t');
-			id = data;
+			id = decrypt(data);
 			getline(userFile, data, '\t');
-			dob = data;
+			dob = decrypt(data);
 			
 			//if current user in file is admin:
 			if (access == "Admin") {
 				getline(userFile, data, '\t');
-				hiredate = data;
+				hiredate = decrypt(data);
 				getline(userFile, data, '\t');
-				rank = data;
+				rank = decrypt(data);
 				getline(userFile, data, '\t');
-				emptype = data;
+				emptype = decrypt(data);
 				
 				Admin adm(access, fname, lname, id, dob, hiredate, rank, emptype);
 				

@@ -244,13 +244,13 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 	
 	for (int i=0; i<userPos; i++) {
 		// Cycle through entire user list and write to file
-		userFile <<endl<<userList[i]->getAccessRights()<<"\t"<<userList[i]->getFirstName()<<"\t"<<userList[i]->getLastName()<<"\t"<<userList[i]->getID()<<"\t"<<userList[i]->getDOB()<<"\t";
+		userFile <<endl<<userList[i]->getAccessRights()<<"\t"<<userList[i]->getFirstName()<<"\t"<<userList[i]->getLastName()<<"\t"<<encrypt(userList[i]->getID())<<"\t"<<encrypt(userList[i]->getDOB())<<"\t";
 		
 		// If current user is an Admin, then write these specific attributes to file
 		if (userList[i]->getAccessRights() == "Admin") {
 			for (int j=0; j<adminPos; j++) {
 				if (userList[i]->getID() == adminList[j].getID()) {	// Match user ID in both arrays to make sure it is the correct user
-					userFile <<adminList[j].getHireDate()<<"\t"<<adminList[j].getRank()<<"\t"<<adminList[j].getEmploymentType()<<"\t";
+					userFile <<encrypt(adminList[j].getHireDate())<<"\t"<<encrypt(adminList[j].getRank())<<"\t"<<encrypt(adminList[j].getEmploymentType())<<"\t";
 				}
 			}
 		}
