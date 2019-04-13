@@ -31,7 +31,7 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 				break;
 			case 7:
 				cout <<"**Logging Off**"<<endl;
-				Admin_Util::fromLoginFile(userList);
+				Admin_Util::fromLoginFile(userList, userPos);
 				Admin_Util::toLoginFile(userList, userPos);
 				Admin_Util::toUserFile(userList, userPos, custList, custPos, adminList, adminPos, bnkrList, bnkrPos);
 				return false;
@@ -278,10 +278,9 @@ void Admin_Util::toLoginFile(User* list[], int userPos) {
 }
 
 // Will load users with their password prior to saving to "login.txt"
-void Admin_Util::fromLoginFile(User* list[]) {
+void Admin_Util::fromLoginFile(User* list[], int userPos) {
 	
 	string data, id, u, p;
-	int i=0;
 	
 	ifstream loginFile("login.txt");
 	
@@ -293,11 +292,13 @@ void Admin_Util::fromLoginFile(User* list[]) {
 			u = decrypt(data);
 			getline(loginFile, data, '\t');
 			p = decrypt(data);
-			if (list[i]->getID() == id) {
-				list[i]->loginInfo.setUsername(u);
-				list[i]->loginInfo.setPassword(p);
+			
+			for (int i=0; i<userPos; i++) {
+				if (list[i]->getID() == id) {
+					list[i]->loginInfo.setUsername(u);
+					list[i]->loginInfo.setPassword(p);
+				}	
 			}
-			i++;
 		}
 		loginFile.close();
 	}
@@ -345,23 +346,23 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 }
 
 string Admin_Util::encrypt(string encpt) {
-	char key = 'a';
+/*	char key = 'a';
 	
 	for (int i=0; i<encpt.size(); i++)
 	{
 		encpt[i] ^= key;
 	}
 
-	return encpt;
+*/	return encpt;
 }
 
 string Admin_Util::decrypt(string decpt) {
-	char key = 'a';
+/*	char key = 'a';
 	
 	for (int i=0; i<decpt.size(); i++)
 	{
 		decpt[i] ^= key;
 	}
 	
-	return decpt;
+*/	return decpt;
 }

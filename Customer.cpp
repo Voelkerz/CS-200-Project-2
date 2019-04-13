@@ -26,14 +26,17 @@ Customer::Customer(string a, string f, string l, string i, string d, string o, s
 	setOccupation(o);
 	setAddress(ad);
 }
-void Customer::print()
-{
-	cout << fname << lname << "\n";
-	cout << dob << "\n";
-	cout << id << "\n";
-	cout << occupation << "\n";
-	cout << address << "\n";
-};
+
+void Customer::print() {
+	cout <<"======================="<<"\n"
+		 <<"Name: "<<this->getName()<<"\n"
+		 <<"ID: "<<this->getID()<<"\n"
+		 <<"Access: "<<this->getAccessRights()<<"\n"
+		 <<"DOB: "<<this->getDOB()<<"\n"
+		 <<"Occupation: "<<this->getOccupation()<<"\n"
+		 <<"Address: "<<this->getAddress()<<endl;
+}
+
 //------------------------------//
 // MUTATOR FUNCTIONS			//
 //------------------------------//

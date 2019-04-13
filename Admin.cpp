@@ -43,11 +43,13 @@ void Admin::setID(string i)
 //------------------------------//
 
 void Admin::print()
-{
-	cout << fname << " " << lname << "\n";
-	cout << dob << "\n";
-	cout << id << "\n";
-	cout << hireDate << "\n";
-	cout << rank << "\n";
-	cout << employmentType << "\n";
+{	
+	cout <<"======================="<<"\n"
+		 <<"Name: "<<this->getName()<<"\n"
+		 <<"ID: "<<this->getID()<<"\n"
+		 <<"Access: "<<this->getAccessRights()<<"\n"
+		 <<"DOB: "<<this->getDOB()<<"\n"
+		 <<"Hire Date: "<<this->getHireDate()<<"\n"
+		 <<"Rank: "<<this->getRank()<<"\n"
+		 <<"Full/Part: "<<this->getEmploymentType()<<endl;
 }

@@ -1,8 +1,4 @@
 
-Admin	Root	Admin	HIFK?	NNS&&&SNNNN	GS?SLNOG	,
-	8^*	
-Banker	Test	Banker	KMJF<	NNS&&&SNNNN	OLS?SLNOG	*
-	8S*	
-Customer	Test	Customer	MLFK=	NNS&&&SNNNN	*
-	OJL!*
-!,	
+Admin	Root	Admin	6785A	00-XXX-0000	9-Apr-2019	Root	Full-Time	
+Banker	Test	Banker	6743B	00-XXX-0000	13-Apr-2019	Tester	Full-Time	
+Customer	Test	Customer	3285C	00-XXX-0000	Tester	XXX	

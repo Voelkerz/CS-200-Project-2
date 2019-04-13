@@ -90,6 +90,10 @@ bool Login_Util::login(User* list[], int max, int &user) {
 void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminList, int &adminPos, Banker* bnkrList, int &bnkrPos, Customer* custList, int &custPos) {
 	
 	string data, access, fname, lname, id, dob, occupation, address, hiredate, rank, emptype;
+	userPos=0;
+	adminPos=0;
+	bnkrPos=0;
+	custPos=0;
 	
 	ifstream userFile("users.txt");
 	
@@ -164,23 +168,23 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminLis
 }
 
 string Login_Util::encrypt(string encpt) {
-	char key = '~';
+/*	char key = 'a';
 	
 	for (int i=0; i<encpt.size(); i++)
 	{
 		encpt[i] ^= key;
 	}
 	
-	return encpt;
+*/	return encpt;
 }
 
 string Login_Util::decrypt(string decpt) {
-	char key = '~';
+/*	char key = 'a';
 	
 	for (int i=0; i<decpt.size(); i++)
 	{
 		decpt[i] ^= key;
 	}
 	
-	return decpt;
+*/	return decpt;
 }

@@ -1,7 +1,4 @@
 
-HIFK?	
-	
-	
-KMJF<			
-MLFK=	
-		
+6785A	root	toor	
+6743B	banker	pass	
+3285C	customer	pass	

@@ -22,7 +22,7 @@ class Admin_Util {
 		static void audit(Customer*, int);
 		static void toLoginFile(User* [], int);
 		static void toUserFile(User* [], int, Customer*, int, Admin*, int, Banker*, int);
-		static void fromLoginFile(User* []);
+		static void fromLoginFile(User* [], int);
 		static string encrypt(string);
 		static string decrypt(string);
 		virtual void foo()=0;

@@ -68,7 +68,7 @@ void ATM_Util::changePassword(User* userList[], int userPos, int currentUser) {
 	
     string pass;
 
-    Admin_Util::fromLoginFile(userList);
+    Admin_Util::fromLoginFile(userList, userPos);
     cout <<"Enter new password: ";
     cin >>pass;
     userList[currentUser]->loginInfo.setPassword(pass);
