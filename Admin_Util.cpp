@@ -258,7 +258,7 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 		else if (userList[i]->getAccessRights() == "Banker") {
 			for (int j=0; j<bnkrPos; j++) {
 				if (userList[i]->getID() == bnkrList[j].getID()) {
-					userFile <<bnkrList[j].getHireDate()<<"\t"<<bnkrList[j].getRank()<<"\t"<<bnkrList[j].getEmploymentType()<<"\t";
+					userFile <<encrypt(bnkrList[j].getHireDate())<<"\t"<<encrypt(bnkrList[j].getRank())<<"\t"<<encrypt(bnkrList[j].getEmploymentType())<<"\t";
 				}
 			}
 		}
@@ -266,7 +266,7 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 		else if (userList[i]->getAccessRights() == "Customer") {
 			for (int j=0; j<custPos; j++) {
 				if (userList[i]->getID() == custList[j].getID()) {
-					userFile <<custList[j].getOccupation()<<"\t"<<custList[j].getAddress()<<"\t";
+					userFile <<encrypt(custList[j].getOccupation())<<"\t"<<encrypt(custList[j].getAddress())<<"\t";
 				}
 			}
 		}		 

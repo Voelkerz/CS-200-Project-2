@@ -127,11 +127,11 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminLis
 			//if banker:
 			else if (access == "Banker") {
 				getline(userFile, data, '\t');
-				hiredate = data;
+				hiredate = decrypt(data);
 				getline(userFile, data, '\t');
-				rank = data;
+				rank = decrypt(data);
 				getline(userFile, data, '\t');
-				emptype = data;
+				emptype = decrypt(data);
 				
 				Banker bnkr(access, fname, lname, id, dob, hiredate, rank, emptype);
 				
@@ -144,9 +144,9 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminLis
 			//if customer:
 			else if (access == "Customer") {
 				getline(userFile, data, '\t');
-				occupation = data;
+				occupation = decrypt(data);
 				getline(userFile, data, '\t');
-				address = data;
+				address = decrypt(data);
 				
 				Customer cust(access, fname, lname, id, dob, occupation, address);
 				
