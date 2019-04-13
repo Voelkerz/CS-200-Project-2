@@ -13,7 +13,7 @@ class Banker_Util {
 	public:
 		Banker_Util();
 		static bool util_main(int, User* [], int, int&, Employee* [], int, int&, Admin*, int, int&, Banker*, int, int&, Customer*, int, int&);
-		static void menu(int, User*, int, int, Customer*, int);
+		static bool menu(int, User* [], int, int, Customer*, int);
 		virtual void foo()=0;
 		void changePassword();
 };

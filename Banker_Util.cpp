@@ -5,7 +5,7 @@ Banker_Util::Banker_Util()
 	
 }
 
-void Banker_Util::menu(int currentUser, User* userList, int userMax, int userPos, Customer* custList, int maxCust)
+bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userPos, Customer* custList, int maxCust)
 {
 	int option;
 	double amount;
@@ -118,4 +118,5 @@ void Banker_Util::menu(int currentUser, User* userList, int userMax, int userPos
 			cout << "ERROR: INVALID OPTION";			
 	}
 } while (option != 5);
+	return false;
 };

@@ -21,7 +21,7 @@ void Login_Util::util_main(User* userList[], int userMax, int &userPos, Admin* a
 			loggedIn = Admin_Util::util_main(currentUser, userList, userMax, userPos, adminList, admMax, adminPos, bnkrList, bnkrMax, bnkrPos, custList, custMax, custPos);
 		}
 		else if (userList[currentUser]->getAccessRights() == "Banker") {
-			//loggedIn = Banker_Util::util_main();
+			loggedIn = Banker_Util::menu(currentUser, userList, userMax, userPos, custList, custMax);
 		}
 		else if (userList[currentUser]->getAccessRights() == "Customer") {
 			loggedIn = ATM_Util::util_main();
