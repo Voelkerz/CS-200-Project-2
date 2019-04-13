@@ -1,19 +1,14 @@
 //Audit.h
 #include<iostream>
 using namespace std;
-#ifndef ADUIT_H
+#include "Customer.h"
+
+#ifndef AUDIT_H
 #define AUDIT_H
-
-class Audit
-{
+class Audit {
 	public:
-		Audit();
-		void printCustomerAccount();
-		void printCustomerList();
-		void fullTransactionHistory();
-		
-	private:
-		
+		static void printCustomerAccount(Customer*, int, string);
+		static void printCustomerList(Customer*, int);
+		static void fullTransactionHistory();
 };
-
 #endif

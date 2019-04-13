@@ -4,6 +4,7 @@
 #include <fstream>
 using namespace std;
 #include "Admin.h"
+#include "Audit.h"
 #include "Banker.h"
 #include "Customer.h"
 
@@ -18,6 +19,7 @@ class Admin_Util {
 		static void createCustomer(User* [], int,  int&, Customer*, int, int&);
 		static void printAllUsers(User* [], int);
 		static void viewUser(User* [], int);
+		static void audit(Customer*, int);
 		static void toLoginFile(User* [], int);
 		static void toUserFile(User* [], int, Customer*, int, Admin*, int, Banker*, int);
 		static void fromLoginFile(User* []);

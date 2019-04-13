@@ -27,6 +27,7 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 				Admin_Util::viewUser(userList, userPos);
 				break;
 			case 6:
+				Admin_Util::audit(custList, custPos);
 				break;
 			case 7:
 				cout <<"**Logging Off**"<<endl;
@@ -58,7 +59,7 @@ int Admin_Util::menu(User* userList[], int currentUser) {
 		 <<"\t\t3. Create Customer Account"<<"\n"
 		 <<"\t\t4. View All Users"<<"\n"
 		 <<"\t\t5. View User"<<"\n"
-		 <<"\t\t6. Enter Audit Mode (Inactive)"<<"\n"
+		 <<"\t\t6. Enter Audit Mode"<<"\n"
 		 <<"\t\t7. LOGOUT"<<"\n"
 		 <<"\tChoose an option"<<endl;
 	cin >>option;
@@ -226,6 +227,44 @@ void Admin_Util::viewUser(User* userList[], int userPos) {
 		}
 }
 
+void Admin_Util::audit(Customer* custList, int custPos) {
+	int option;
+	string id;
+	
+	do {	
+		system("CLS");
+		cout <<"\t\tAudit Utility Menu"<<"\n"
+			 <<"\t\t=================="<<"\n"
+			 <<"\t\t1. View Customer Account Info"<<"\n"
+			 <<"\t\t2. List Customers"<<"\n"
+			 <<"\t\t3. View Transaction Log (inactive)"<<"\n"
+			 <<"\t\t4. Return to Admin Menu"<<"\n"
+			 <<"\tChoose an option"<<endl;
+		cin >>option;
+	
+		switch (option) {
+			case 1: 
+				cout <<"Enter Customer ID#: ";
+				cin >>id;
+				cout <<endl;
+				Audit::printCustomerAccount(custList, custPos, id);
+				break;
+			case 2:
+				Audit::printCustomerList(custList, custPos);
+				break;
+			case 3:
+				break;
+			case 4:
+				cout <<"**Returning to Admin Menu**"<<endl;
+				break;
+			default:
+				cout <<"**Invalid Option**"<<endl;	
+		}
+		
+		system("PAUSE");
+	} while (option != 4);
+}
+
 // Write to all loaded user passwords and usernames to "login.txt"
 // Caution** Use only after fromLoginFile(), or you will wipe the "login.txt" file
 void Admin_Util::toLoginFile(User* list[], int userPos) {
@@ -234,6 +273,37 @@ void Admin_Util::toLoginFile(User* list[], int userPos) {
 	
 	for (int i=0; i<userPos; i++) {
 		loginFile <<endl<<encrypt(list[i]->getID())<<"\t"<<encrypt(list[i]->loginInfo.getUsername())<<"\t"<<encrypt(list[i]->loginInfo.getPassword())<<"\t";
+	}
+	loginFile.close();
+}
+
+// Will load users with their password prior to saving to "login.txt"
+void Admin_Util::fromLoginFile(User* list[]) {
+	
+	string data, id, u, p;
+	int i=0;
+	
+	ifstream loginFile("login.txt");
+	
+	if (loginFile.is_open()) {
+		while (getline(loginFile, data)) {
+			getline(loginFile, data, '\t');
+			id = decrypt(data);
+			getline(loginFile, data, '\t');
+			u = decrypt(data);
+			getline(loginFile, data, '\t');
+			p = decrypt(data);
+			if (list[i]->getID() == id) {
+				list[i]->loginInfo.setUsername(u);
+				list[i]->loginInfo.setPassword(p);
+			}
+			i++;
+		}
+		loginFile.close();
+	}
+	//Give error if file is not open
+	else {
+		cout <<"**Error: Cannot Open Login File**";
 	}
 }
 
@@ -274,49 +344,19 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 	userFile.close();
 }
 
-// Will load users with their password prior to saving to "login.txt"
-void Admin_Util::fromLoginFile(User* list[]) {
-	
-	string data, id, u, p;
-	int i=0;
-	
-	ifstream loginFile("login.txt");
-	
-	if (loginFile.is_open()) {
-		while (getline(loginFile, data)) {
-			getline(loginFile, data, '\t');
-			id = decrypt(data);
-			getline(loginFile, data, '\t');
-			u = decrypt(data);
-			getline(loginFile, data, '\t');
-			p = decrypt(data);
-			if (list[i]->getID() == id) {
-				list[i]->loginInfo.setUsername(u);
-				list[i]->loginInfo.setPassword(p);
-			}
-			i++;
-		}
-		loginFile.close();
-	}
-	//Give error if file is not open
-	else {
-		cout <<"**Error: Cannot Open Login File**";
-	}
-}
-
 string Admin_Util::encrypt(string encpt) {
-	char key = '~';
+	char key = 'a';
 	
 	for (int i=0; i<encpt.size(); i++)
 	{
 		encpt[i] ^= key;
 	}
-	
+
 	return encpt;
 }
 
 string Admin_Util::decrypt(string decpt) {
-	char key = '~';
+	char key = 'a';
 	
 	for (int i=0; i<decpt.size(); i++)
 	{
