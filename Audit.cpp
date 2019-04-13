@@ -12,11 +12,13 @@ void Audit::printCustomerAccount(Customer* custList, int custPos, string id) {
 			cout <<"\tName: "<<custList[i].getName()<<"\n"
 				 <<"\tID: "<<custList[i].getID()<<endl;
 			for (int j=0; j<2; j++) {
-				cout <<"\t====================="<<"\n"
-					 <<"\tAccount "<<j+1<<":"<<"\n"
-					 <<"\tAccount Number: "<<custList[i].acc[j].getAccountNumber()<<"\n"
-					 <<"\tAccount Type: "<<custList[i].acc[j].getAccountType()<<"\n"
-					 <<"\tAccount Balance: $"<<custList[i].acc[j].getBalance()<<endl;
+				if (custList[i].acc[j].getAccountType() != "Null") {
+					cout <<"\t====================="<<"\n"
+						 <<"\tAccount "<<j+1<<":"<<"\n"
+						 <<"\tAccount Number: "<<custList[i].acc[j].getAccountNumber()<<"\n"
+						 <<"\tAccount Type: "<<custList[i].acc[j].getAccountType()<<"\n"
+						 <<"\tAccount Balance: $"<<custList[i].acc[j].getBalance()<<endl;
+				}
 			}
 			cout <<"======================="<<endl;
 			break;
