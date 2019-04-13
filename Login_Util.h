@@ -12,10 +12,9 @@ using namespace std;
 #define LOGIN_UTIL_H
 class Login_Util {
 	public:
-		static void util_main(User* [], int, int&, Employee* [], int, int&, Admin*, int, int&, Banker*, int, int&, Customer*, int, int&);
-		static int menu();
+		static void util_main(User* [], int, int&, Admin*, int, int&, Banker*, int, int&, Customer*, int, int&);
 		static bool login(User* [], int, int&);
-		static void initializeUsers(User* [], int&, Employee* [], int&,	Admin*, int&, Banker*, int&, Customer*, int&);
+		static void initializeUsers(User* [], int&, Admin*, int&, Banker*, int&, Customer*, int&);
 		static string encrypt(string);
 		static string decrypt(string);
 		virtual void foo()=0;

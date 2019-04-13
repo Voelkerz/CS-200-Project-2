@@ -1,5 +1,6 @@
 //Customer.h
 #include "User.h"
+#include "Accounts.h"
 
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
@@ -18,6 +19,7 @@ class Customer: public User
 		void setAddress(string);
 		string getOccupation();
 		string getAddress();
+		Accounts acc;
 		
 };
 #endif

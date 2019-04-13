@@ -15,7 +15,7 @@ class User
 			string dob;
 		public:
 			User();
-			void print();
+			virtual void print()=0;
 			void setName(string, string);
 			void setAccessRights(string);
 			void setID(string);

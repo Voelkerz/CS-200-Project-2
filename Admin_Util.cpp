@@ -5,17 +5,17 @@
 //												MAIN() FOR ADMIN UTILITY												//
 //----------------------------------------------------------------------------------------------------------------------//
 
-bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &userPos, Employee* empList[], int empMax, int &empPos, Admin* adminList,  int admMax, int &adminPos, Banker* bnkrList, int bnkrMax, int &bnkrPos, Customer* custList, int custMax, int &custPos) {
+bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &userPos, Admin* adminList,  int admMax, int &adminPos, Banker* bnkrList, int bnkrMax, int &bnkrPos, Customer* custList, int custMax, int &custPos) {
 	int option;
 	
 	do {	
 		option = Admin_Util::menu(userList, currentUser);
 		switch (option) {
 			case 1: 
-				Admin_Util::createAdmin(userList, userMax, userPos, empList, empMax, empPos, adminList, admMax, adminPos);
+				Admin_Util::createAdmin(userList, userMax, userPos, adminList, admMax, adminPos);
 				break;
 			case 2:
-				Admin_Util::createBanker(userList, userMax, userPos, empList, empMax, empPos, bnkrList, bnkrMax, bnkrPos);
+				Admin_Util::createBanker(userList, userMax, userPos, bnkrList, bnkrMax, bnkrPos);
 				break;
 			case 3:
 				Admin_Util::createCustomer(userList, userMax, userPos, custList, custMax, custPos);
@@ -32,7 +32,7 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 				cout <<"**Logging Off**"<<endl;
 				Admin_Util::fromLoginFile(userList);
 				Admin_Util::toLoginFile(userList, userPos);
-				Admin_Util::toUserFile(userList, empList, custList, userPos, empPos, custPos);
+				Admin_Util::toUserFile(userList, userPos, custList, custPos, adminList, adminPos, bnkrList, bnkrPos);
 				return false;
 			default:
 				cout <<"**Invalid Option**"<<endl;	
@@ -70,11 +70,11 @@ int Admin_Util::menu(User* userList[], int currentUser) {
 //													FUNCTIONS															//
 //----------------------------------------------------------------------------------------------------------------------//
 
-void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Employee* empList[], int empMax, int &empPos, Admin* adminList, int admMax, int &adminPos) {		// Creates Admin Accounts
+void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Admin* adminList, int admMax, int &adminPos) {		// Creates Admin Accounts
 	int num;
 	string username, password, fname, lname, id, dob, hiredate, rank, emptype;
 	
-	if (adminPos == admMax || empPos == empMax)
+	if (adminPos == admMax)
 		cout <<"**Employee Not Added: List Full**"<<endl;
 	else
 	{
@@ -110,20 +110,18 @@ void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Employ
 				
 			adminList[adminPos] = adm;
 			userList[userPos] = &adminList[adminPos];
-			empList[empPos] = &adminList[adminPos];
 			
 			adminPos++;
 			userPos++;
-			empPos++;
 		}
 	}
 }
 
-void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Employee* empList[], int empMax, int &empPos, Banker* bnkrList, int bnkrMax, int &bnkrPos) {
+void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Banker* bnkrList, int bnkrMax, int &bnkrPos) {
 	int num;
 	string username, password, fname, lname, id, dob, hiredate, rank, emptype;
 	
-	if (bnkrPos == bnkrMax || empPos == empMax)
+	if (bnkrPos == bnkrMax)
 		cout <<"**Employee Not Added: List Full**"<<endl;
 	else
 	{
@@ -158,11 +156,9 @@ void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Emplo
 				
 			bnkrList[bnkrPos] = bnkr;
 			userList[userPos] = &bnkrList[bnkrPos];
-			empList[empPos] = &bnkrList[bnkrPos];
 			
 			bnkrPos++;
 			userPos++;
-			empPos++;
 		}
 	}
 }
@@ -214,12 +210,7 @@ void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Cus
 void Admin_Util::printAllUsers(User* userList[], int userPos) {
 	for (int i=0; i<userPos; i++)
 	{
-		//userList[i]->print();
-		
-		cout <<"\nName: "<<userList[i]->getName()<<"\n"
-			 <<"ID: "<<userList[i]->getID()<<"\n"
-			 <<"DOB: "<<userList[i]->getDOB()<<"\n"
-			 <<"Access Rights: "<<userList[i]->getAccessRights()<<"\n"<<endl;
+		userList[i]->print();
 	}
 }
 
@@ -231,12 +222,7 @@ void Admin_Util::viewUser(User* userList[], int userPos) {
 	
 	for (int i=0; i<userPos; i++)
 		if (userList[i]->getID() == id) {
-			//userList[i]->print();
-			
-			cout <<"\nName: "<<userList[i]->getName()<<"\n"
-				 <<"ID: "<<userList[i]->getID()<<"\n"
-				 <<"DOB: "<<userList[i]->getDOB()<<"\n"
-				 <<"Access Rights: "<<userList[i]->getAccessRights()<<"\n"<<endl;
+			userList[i]->print();
 		}
 }
 
@@ -252,7 +238,7 @@ void Admin_Util::toLoginFile(User* list[], int userPos) {
 }
 
 // Write all users to "users.txt" for persistent data
-void Admin_Util::toUserFile(User* userList[], Employee* empList[], Customer* custList, int userPos, int empPos, int custPos) {
+void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, int custPos, Admin* adminList, int adminPos, Banker* bnkrList, int bnkrPos) {
 	ofstream userFile;
 	userFile.open("users.txt");
 	
@@ -262,17 +248,17 @@ void Admin_Util::toUserFile(User* userList[], Employee* empList[], Customer* cus
 		
 		// If current user is an Admin, then write these specific attributes to file
 		if (userList[i]->getAccessRights() == "Admin") {
-			for (int j=0; j<empPos; j++) {
-				if (userList[i]->getID() == empList[j]->getID()) {	// Match user ID in both arrays to make sure it is the correct user
-					userFile <<empList[j]->getHireDate()<<"\t"<<empList[j]->getRank()<<"\t"<<empList[j]->getEmploymentType()<<"\t";
+			for (int j=0; j<adminPos; j++) {
+				if (userList[i]->getID() == adminList[j].getID()) {	// Match user ID in both arrays to make sure it is the correct user
+					userFile <<adminList[j].getHireDate()<<"\t"<<adminList[j].getRank()<<"\t"<<adminList[j].getEmploymentType()<<"\t";
 				}
 			}
 		}
 		
 		else if (userList[i]->getAccessRights() == "Banker") {
-			for (int j=0; j<empPos; j++) {
-				if (userList[i]->getID() == empList[j]->getID()) {
-					userFile <<empList[j]->getHireDate()<<"\t"<<empList[j]->getRank()<<"\t"<<empList[j]->getEmploymentType()<<"\t";
+			for (int j=0; j<bnkrPos; j++) {
+				if (userList[i]->getID() == bnkrList[j].getID()) {
+					userFile <<bnkrList[j].getHireDate()<<"\t"<<bnkrList[j].getRank()<<"\t"<<bnkrList[j].getEmploymentType()<<"\t";
 				}
 			}
 		}
@@ -285,6 +271,7 @@ void Admin_Util::toUserFile(User* userList[], Employee* empList[], Customer* cus
 			}
 		}		 
 	}
+	userFile.close();
 }
 
 // Will load users with their password prior to saving to "login.txt"

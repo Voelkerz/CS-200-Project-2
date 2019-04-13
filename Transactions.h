@@ -1,7 +1,7 @@
-
 //Transactions.h
 #include<iostream>
 using namespace std;
+#include "Customer.h"
 
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
@@ -9,16 +9,13 @@ using namespace std;
 class Transactions
 {
 	public:
-		Transactions();
-		static void deposit(User* [], int, int, string , double);
-		static void withdraw(User* [], int, int, string , double);
-		void toTransactionFile();
-		void fromTransactionFile();
-		Accounts acc;
+		static void deposit(Customer*, int, int, string , double);
+		static void withdraw(Customer*, int, int, string , double);
+		static void toTransactionFile();
+		static void fromTransactionFile();
 		
 	private:
 		double transactionID;
-		double amount;
 };
 
 #endif

@@ -9,7 +9,7 @@ void Employee::print()
 	cout << fname << " " << lname << "\n";
 	cout << dob << "\n";
 	cout << id << "\n";
-	cout << hireDate << "\n"
+	cout << hireDate << "\n";
 	cout << rank << "\n";
 	cout << employmentType << "\n";
 };

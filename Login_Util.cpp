@@ -5,66 +5,35 @@
 //												MAIN() FOR LOGIN SYSTEM													//
 //----------------------------------------------------------------------------------------------------------------------//
 
-void Login_Util::util_main(User* userList[], int userMax, int &userPos, Employee* empList[], int empMax, int &empPos, Admin* adminList,  int admMax, int &adminPos, Banker* bnkrList, int bnkrMax, int &bnkrPos, Customer* custList, int custMax, int &custPos) {
+void Login_Util::util_main(User* userList[], int userMax, int &userPos, Admin* adminList,  int admMax, int &adminPos, Banker* bnkrList, int bnkrMax, int &bnkrPos, Customer* custList, int custMax, int &custPos) {
 	
 	bool loggedIn = false;
 	int option, currentUser;
 	
-	Login_Util::initializeUsers(userList, userPos, empList, empPos, adminList, adminPos, bnkrList, bnkrPos, custList, custPos);
-				
-	do {
-		option = Login_Util::menu();
-		switch (option) {
-			case 1:  
-				loggedIn = Login_Util::login(userList, userPos, currentUser);
-				
-				if (loggedIn) {
-					if (userList[currentUser]->getAccessRights() == "Admin") {
-						loggedIn = Admin_Util::util_main(currentUser, userList, userMax, userPos, empList, empMax, empPos, adminList, admMax, adminPos, bnkrList, bnkrMax, bnkrPos, custList, custMax, custPos);
-					}
-					else if (userList[currentUser]->getAccessRights() == "Banker") {
-						//loggedIn = Banker_Util::util_main();
-					}
-					else if (userList[currentUser]->getAccessRights() == "Customer") {
-						loggedIn = ATM_Util::util_main();
-					}
-					else {
-						cout <<"\n**Error: Access Rights Not Set**"<<endl;
-						loggedIn = false;
-					}
-				}
-				else {
-					cout <<"\n**Error: Incorrect Username or Password**"<<endl;
-				}
-				break;
-			case 2:
-				cout <<"**Exiting Application**"<<endl;
-				break;
-			default:
-				cout <<"**Invalid Option**"<<endl;	
+	// Initialize user array from "user.txt"
+	Login_Util::initializeUsers(userList, userPos, adminList, adminPos, bnkrList, bnkrPos, custList, custPos);
+	
+	// Run login menu
+	loggedIn = Login_Util::login(userList, userPos, currentUser);
+	
+	if (loggedIn) {
+		if (userList[currentUser]->getAccessRights() == "Admin") {
+			loggedIn = Admin_Util::util_main(currentUser, userList, userMax, userPos, adminList, admMax, adminPos, bnkrList, bnkrMax, bnkrPos, custList, custMax, custPos);
 		}
-		
-		system("PAUSE");
-	} while (option != 2);
-}
-
-//----------------------------------------------------------------------------------------------------------------------//
-//													MAIN MENU															//
-//----------------------------------------------------------------------------------------------------------------------//
-
-int Login_Util::menu() {
-	
-	int option;
-	
-	system("CLS");
-	cout <<"\t\tCS-200 Project 1 Banking Application"<<endl
-		 <<"\t\t===================================="<<endl
-		 <<"\t\t1. Login"<<endl
-		 <<"\t\t2. Exit Application"<<endl
-		 <<"\tChoose an option"<<endl;
-	cin >>option;
-		
-	return option;
+		else if (userList[currentUser]->getAccessRights() == "Banker") {
+			//loggedIn = Banker_Util::util_main();
+		}
+		else if (userList[currentUser]->getAccessRights() == "Customer") {
+			loggedIn = ATM_Util::util_main();
+		}
+		else {
+			cout <<"\n**Error: Access Rights Not Set**"<<endl;
+			loggedIn = false;
+		}
+	}
+	else {
+		cout <<"\n**Error: Incorrect Username or Password**"<<endl;
+	}	
 }
 
 //----------------------------------------------------------------------------------------------------------------------//
@@ -118,7 +87,7 @@ bool Login_Util::login(User* list[], int max, int &user) {
 //----------------------------------------------------------------------------------------------------------------------//
 
 // Loads all persistent user file data from "users.txt" and stores it into appropriate arrays on program startup
-void Login_Util::initializeUsers(User* userList[], int &userPos, Employee* empList[], int &empPos, Admin* adminList, int &adminPos, Banker* bnkrList, int &bnkrPos, Customer* custList, int &custPos) {
+void Login_Util::initializeUsers(User* userList[], int &userPos, Admin* adminList, int &adminPos, Banker* bnkrList, int &bnkrPos, Customer* custList, int &custPos) {
 	
 	string data, access, fname, lname, id, dob, occupation, address, hiredate, rank, emptype;
 	
@@ -150,9 +119,7 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Employee* empLi
 				
 				adminList[adminPos] = adm;
 				userList[userPos] = &adminList[adminPos];
-				empList[empPos] = &adminList[adminPos];
 				
-				empPos++;
 				adminPos++;
 			}
 			
@@ -170,9 +137,7 @@ void Login_Util::initializeUsers(User* userList[], int &userPos, Employee* empLi
 				
 				bnkrList[bnkrPos] = bnkr;
 				userList[userPos] = &bnkrList[bnkrPos];
-				empList[empPos] = &bnkrList[bnkrPos];
 				
-				empPos++;
 				bnkrPos++;
 			}
 			
