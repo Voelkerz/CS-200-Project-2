@@ -10,9 +10,9 @@ void Transactions::deposit(Customer* custList, int custPos, int max, string cust
 	{
 		if (customerID == custList[i].getID())
 			{
-				balance = custList[i].acc.getBalance();
+				balance = custList[i].acc[0].getBalance();
 				balance = balance + amount;
-				custList[i].acc.setBalance(balance);
+				custList[i].acc[0].setBalance(balance);
 			}
 	}
 }
@@ -25,7 +25,7 @@ void Transactions::withdraw(Customer* custList, int custPos, int max, string cus
 	{
 		if (customerID == custList[i].getID())
 			{
-				balance = custList[i].acc.getBalance();
+				balance = custList[i].acc[0].getBalance();
 				if (withdraw > balance)
 				{
 					cout << "ERROR: NOT ENOUGH FUNDS";
@@ -33,7 +33,7 @@ void Transactions::withdraw(Customer* custList, int custPos, int max, string cus
 				else
 				{
 					balance = balance - withdraw;
-					custList[i].acc.setBalance(balance);
+					custList[i].acc[0].setBalance(balance);
 				}
 			}
 	}

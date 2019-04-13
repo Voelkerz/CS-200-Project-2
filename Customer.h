@@ -19,7 +19,7 @@ class Customer: public User
 		void setAddress(string);
 		string getOccupation();
 		string getAddress();
-		Accounts acc;
+		Accounts acc[2];
 		
 };
 #endif

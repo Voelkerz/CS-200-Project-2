@@ -47,7 +47,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 						cin >> amount;
 						Transactions::deposit(custList, userPos, userMax, id, amount);
 						cout << "\nTransaction succesful"
-						 	 << "\nAccount Balance: " << custList[i].acc.getBalance();
+						 	 << "\nAccount Balance: " << custList[i].acc[0].getBalance();
 					};
 			};
 			break;
@@ -72,7 +72,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 					{*/
 					Transactions::withdraw(custList, userPos, maxCust, id, amount);
 					cout << "\nTransaction succesful"
-						 << "\nAccount Balance: " << custList[i].acc.getBalance();
+						 << "\nAccount Balance: " << custList[i].acc[0].getBalance();
 					//};
 				};
 			};
@@ -90,7 +90,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			{
 				if (custList[i].getID() == id)
 				{
-					if (amount > custList[i].acc.getBalance())
+					if (amount > custList[i].acc[0].getBalance())
 					{
 						cout << "\nERROR: NOT ENOUGH FUNDS";
 					}

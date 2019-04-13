@@ -5,7 +5,7 @@
 Accounts::Accounts()
 {
 	setAccountNumber(0.0);
-	setAccountType(" ");
+	setAccountType("Null");
 	setBalance(0.0);
 }
  

@@ -1,13 +1,14 @@
 //ATM_Util.cpp
 #include "ATM_Util.h"
 
-bool ATM_Util::util_main(User* userList[], int userPos, int currentUser) {
+bool ATM_Util::util_main(User* userList[], int userPos, Customer* custList, int custPos, int currentUser) {
 	int option;
 	
 	do {	
 		option = ATM_Util::menu(userList, currentUser);
 		switch (option) {
-			case 1: 
+			case 1:
+				ATM_Util::viewAccountInfo(userList, custList, custPos, currentUser);
 				break;
 			case 2:
 				break;
@@ -56,8 +57,28 @@ int ATM_Util::viewBalance() {
 	
 }
 
-int ATM_Util::viewAccountInfo() {
+int ATM_Util::viewAccountInfo(User* userList[], Customer* custList, int custPos, int currentUser) {
 	
+	int id;
+	
+	for (int i=0; i<custPos; i++) {
+		if (userList[currentUser]->getID() == custList[i].getID()) {
+			id = i;
+		}
+	}
+	
+	cout <<"\tName: "<<custList[id].getName()<<"\n"
+		 <<"\tID: "<<custList[id].getID()<<endl;
+		 
+	for (int i=0; i<2; i++) {
+		//if (custList[id].acc[i].getAccountType() != "Null") {
+			cout <<"\t\t====================="<<"\n"
+				 <<"\t\tAccount "<<i+1<<":"<<"\n"
+				 <<"\t\tAccount Number: "<<custList[id].acc[i].getAccountNumber()<<"\n"
+				 <<"\t\tAccount Type: "<<custList[id].acc[i].getAccountType()<<"\n"
+				 <<"\t\tAccount Balance: "<<custList[id].acc[i].getBalance()<<endl;
+		//}
+	}
 }
 
 string ATM_Util::customerTransHistory() {

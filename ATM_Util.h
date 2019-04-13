@@ -11,11 +11,11 @@ class ATM_Util
 {
 	public:
 		ATM_Util();
-		static bool util_main(User* [], int, int);
+		static bool util_main(User* [], int, Customer*, int, int);
 		static int menu(User* [], int);
 		static int transfer();
 		static int viewBalance();
-		static int viewAccountInfo();
+		static int viewAccountInfo(User* [], Customer*, int, int);
 		static string customerTransHistory();
 		static void changePassword(User* [], int, int);
 		virtual void foo() = 0;
