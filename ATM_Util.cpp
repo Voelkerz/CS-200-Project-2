@@ -71,13 +71,13 @@ int ATM_Util::viewAccountInfo(User* userList[], Customer* custList, int custPos,
 		 <<"\tID: "<<custList[id].getID()<<endl;
 		 
 	for (int i=0; i<2; i++) {
-		//if (custList[id].acc[i].getAccountType() != "Null") {
+		if (custList[id].acc[i].getAccountType() != "Null") {
 			cout <<"\t\t====================="<<"\n"
 				 <<"\t\tAccount "<<i+1<<":"<<"\n"
 				 <<"\t\tAccount Number: "<<custList[id].acc[i].getAccountNumber()<<"\n"
 				 <<"\t\tAccount Type: "<<custList[id].acc[i].getAccountType()<<"\n"
 				 <<"\t\tAccount Balance: "<<custList[id].acc[i].getBalance()<<endl;
-		//}
+		}
 	}
 }
 

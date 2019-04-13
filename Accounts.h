@@ -9,15 +9,15 @@ class Accounts
 {
 	public:
 		Accounts();
-		void setAccountNumber(double);
+		void setAccountNumber(string);
 		void setAccountType(string);
 		void setBalance(double);
-		double getAccountNumber();
+		string getAccountNumber();
 		string getAccountType();
 		double getBalance();
 		
 	private:
-		double accountNumber;
+		string accountNumber;
 		string accountType;
 		double accountBalance;
 };

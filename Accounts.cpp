@@ -4,13 +4,13 @@
 //default constructor
 Accounts::Accounts()
 {
-	setAccountNumber(0.0);
+	setAccountNumber("Null");
 	setAccountType("Null");
 	setBalance(0.0);
 }
  
 //mutators
-void Accounts::setAccountNumber(double acc)
+void Accounts::setAccountNumber(string acc)
 {
 	accountNumber = acc;
 }
@@ -26,7 +26,7 @@ void Accounts::setBalance(double bal)
 }
 
 //accessors
-double Accounts::getAccountNumber()
+string Accounts::getAccountNumber()
 {
 	return accountNumber;
 }

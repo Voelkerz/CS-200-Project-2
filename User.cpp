@@ -7,6 +7,9 @@
 
 User::User() {
 	
+	setID("Null");
+	setName("Null", "Null");
+	setDOB("Null");
 }
 
 //------------------------------//
