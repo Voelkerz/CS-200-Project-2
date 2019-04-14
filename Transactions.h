@@ -7,7 +7,6 @@ using namespace std;
 
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
-
 class Transactions
 {
 	public:
@@ -16,9 +15,5 @@ class Transactions
 		static void toTransactionFile(Customer*, int, string, string, double);
 		static string encrypt(string);
 		static string decrypt(string);
-		
-	private:
-		double transactionID;
 };
-
 #endif
