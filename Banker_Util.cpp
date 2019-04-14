@@ -9,7 +9,8 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 {
 	int option;
 	double amount;
-	string password, id, id2, accNum;
+	string password, id, id2, accNum, accType;
+	
 	do {
 	system("CLS");
 	cout << "\t\tBanker Utility\n"
@@ -18,7 +19,8 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 		 << "\t2. Deposit to customer account\n"
 		 << "\t3. Withdraw from customer account\n"
 		 << "\t4. Transfer funds\n"
-		 << "\t5. Exit\n"
+		 << "\t5. Create an account\n"
+		 << "\t6. Exit\n"
 		 << "Enter an option: ";
 	cin >> option;
 	system("CLS");
@@ -41,7 +43,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			{
 				if (custList[i].getID() == id)
 					{
-						cout << custList[i].getName() << "Account\n"
+						cout << "\n" << custList[i].getName() << "Account\n"
 							 << "==================================\n"
 							 << "Enter the deposit amount: ";
 						cin >> amount;
@@ -61,7 +63,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			{
 				if (custList[i].getID() == id)
 				{
-					cout << custList[i].getName() << "Account\n"
+					cout << "\n" << custList[i].getName() << "Account\n"
 						 <<"==================================\n"
 						 << "Enter the withdraw amount: ";
 					cin >> amount;
@@ -114,6 +116,22 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			cout << "\nTransfer Succesful";
 			break;
 		case 5:
+			cout << "Enter the customer ID: "
+			cin >> id;
+			for (int i = 0; i < custPos; i++)
+			{
+				if (custList[i].getID() == id)
+				{
+					cout << "\nEnter the account number: ";
+					cin >> accNum;
+					custList[i].acc[0].setAccountNumber(accNum);
+					cout << "\nEnter the account type: "
+					cin >> accType;
+					custList[i].acc[0].setAccountType(accType);
+					custList[i].acc[0].setBalance(0.0);
+				};
+			};
+		case 6:
 			system("CLS");
 			cout << "Good Bye !!";
 			break;
@@ -121,6 +139,6 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			system("CLS");
 			cout << "ERROR: INVALID OPTION";			
 	}
-} while (option != 5);
+} while (option != 6);
 	return false;
 };
