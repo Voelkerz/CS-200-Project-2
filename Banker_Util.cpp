@@ -116,7 +116,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 			cout << "\nTransfer Succesful";
 			break;
 		case 5:
-			cout << "Enter the customer ID: "
+			cout << "Enter the customer ID: ";
 			cin >> id;
 			for (int i = 0; i < custPos; i++)
 			{
@@ -125,7 +125,7 @@ bool Banker_Util::menu(int currentUser, User* userList[], int userMax, int userP
 					cout << "\nEnter the account number: ";
 					cin >> accNum;
 					custList[i].acc[0].setAccountNumber(accNum);
-					cout << "\nEnter the account type: "
+					cout << "\nEnter the account type: ";
 					cin >> accType;
 					custList[i].acc[0].setAccountType(accType);
 					custList[i].acc[0].setBalance(0.0);
