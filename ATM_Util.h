@@ -12,14 +12,14 @@ class ATM_Util
 {
 	public:
 		ATM_Util();
-		static bool util_main(User* [], int, Customer*, int, int);
-		static int menu(User* [], int);
-		static void createAccount(Customer*, int, int);
-		static void viewAccountInfo(Customer*, int);
-		static void customerTransHistory(Customer*, int);
-		static void changePassword(User* [], int, int);
-		static void depositFunds(Customer*, int, int);
-		static void withdrawFunds(Customer*, int, int);
+		static bool util_main(vector<User*> &, vector<Customer> &, int);
+		static int menu(vector<User*>, int);
+		static void createAccount(vector<Customer> &, int);
+		static void viewAccountInfo(vector<Customer>, int);
+		static void customerTransHistory(vector<Customer>, int);
+		static void changePassword(vector<User*> &, int);
+		static void depositFunds(vector<Customer> &, int);
+		static void withdrawFunds(vector<Customer> &, int);
 		static void transferFunds();
 		static string encrypt(string);
 		static string decrypt(string);

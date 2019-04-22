@@ -5,9 +5,9 @@
 //													AUDIT FUNCTIONS														//
 //----------------------------------------------------------------------------------------------------------------------//
 
-void Audit::printCustomerAccount(Customer* custList, int custPos, string id) {
+void Audit::printCustomerAccount(vector<Customer> custList, string id) {
 	
-	for (int i=0; i<custPos; i++) {
+	for (int i=0; i<custList.size(); i++) {
 		if (custList[i].getID() == id) {
 			cout <<"\tName: "<<custList[i].getName()<<"\n"
 				 <<"\tID: "<<custList[i].getID()<<endl;
@@ -23,18 +23,19 @@ void Audit::printCustomerAccount(Customer* custList, int custPos, string id) {
 			cout <<"\t======================="<<endl;
 			break;
 		}
-		cout <<"**Error: Customer ID Not Found**"<<endl;
+		else
+			cout <<"**Error: Customer ID Not Found**"<<endl;
 	}
 }
 
-void Audit::printCustomerList(Customer* custList, int custPos) {
+void Audit::printCustomerList(vector<Customer> custList) {
 	
-	for (int i=0; i<custPos; i++) {
+	for (int i=0; i<custList.size(); i++) {
 		cout <<"ID: "<<custList[i].getID()<<"\tName: "<<custList[i].getName()<<endl;
 	}
 }
 
-void Audit::fullTransactionHistory(Customer* custList, int custPos) {
+void Audit::fullTransactionHistory(vector<Customer> custList) {
 	
 	string data, custID, accNum, amount;
 	int n=1;
@@ -50,7 +51,7 @@ void Audit::fullTransactionHistory(Customer* custList, int custPos) {
 			getline(transFile, data, '\t');
 			amount = decrypt(data);
 			
-			for (int i=0; i<custPos; i++) {
+			for (int i=0; i<custList.size(); i++) {
 				if (custList[i].getID() == custID) {
 					cout <<"Transaction #"<<n<<": Customer "<<custList[i].getID()<<" // ";
 					for (int j=0; j<2; j++) {

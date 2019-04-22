@@ -1,11 +1,11 @@
 //ATM_Util.cpp
 #include "ATM_Util.h"
 
-bool ATM_Util::util_main(User* userList[], int userPos, Customer* custList, int custPos, int currentUser) {
+bool ATM_Util::util_main(vector<User*> &userList, vector<Customer> &custList, int currentUser) {
 	int option, currentCust;
 	double amount;
 	
-	for (int i=0; i<custPos; i++) {
+	for (int i=0; i<custList.size(); i++) {
 		if (userList[currentUser]->getID() == custList[i].getID()) {
 			currentCust = i;
 		}
@@ -15,22 +15,22 @@ bool ATM_Util::util_main(User* userList[], int userPos, Customer* custList, int 
 		option = ATM_Util::menu(userList, currentUser);
 		switch (option) {
 			case 1:
-				ATM_Util::createAccount(custList, custPos, currentCust);
+				ATM_Util::createAccount(custList, currentCust);
 				break;
 			case 2:
 				ATM_Util::viewAccountInfo(custList, currentCust);
 				break;
 			case 3:
-				ATM_Util::depositFunds(custList, custPos, currentCust);
+				ATM_Util::depositFunds(custList, currentCust);
 				break;
 			case 4:
-				ATM_Util::withdrawFunds(custList, custPos, currentCust);
+				ATM_Util::withdrawFunds(custList, currentCust);
 				break;
 			case 5:
 				ATM_Util::customerTransHistory(custList, currentCust);
 				break;
 			case 6:
-				ATM_Util::changePassword(userList, userPos, currentUser);
+				ATM_Util::changePassword(userList, currentUser);
 				break;
 			case 7:
 				cout <<"**Logging Off**"<<endl;
@@ -43,11 +43,11 @@ bool ATM_Util::util_main(User* userList[], int userPos, Customer* custList, int 
 	} while (option != 7);
 }
 
-int ATM_Util::menu(User* userList[], int currentUser) {
+int ATM_Util::menu(vector<User*> userList, int currentUser) {
 	int option;
 	
 	system("CLS");
-	cout <<"\t\tLogged In: "<<userList[currentUser]->getName()<<"\n\n"
+	cout <<"Logged In: "<<userList[currentUser]->getName()<<"\n\n"
 		 <<"\t\t\tATM Menu"<<"\n"
 		 <<"\t\t=========================="<<"\n"
 		 <<"\t\t1. Create New Account"<<"\n"
@@ -67,7 +67,7 @@ void ATM_Util::transferFunds() {
 	
 }
 
-void ATM_Util::createAccount(Customer* custList, int custPos, int currentCust) {
+void ATM_Util::createAccount(vector<Customer> &custList, int currentCust) {
 	
 	int option;
 	double amount;
@@ -100,7 +100,7 @@ void ATM_Util::createAccount(Customer* custList, int custPos, int currentCust) {
 						
 						custList[currentCust].acc[i].setAccountType("Checking");
 						custList[currentCust].acc[i].setAccountNumber(num);
-						Transactions::deposit(custList, custPos, id, num, amount);
+						Transactions::deposit(custList, id, num, amount);
 						break;
 					}
 				}
@@ -119,7 +119,7 @@ void ATM_Util::createAccount(Customer* custList, int custPos, int currentCust) {
 						
 						custList[currentCust].acc[i].setAccountType("Savings");
 						custList[currentCust].acc[i].setAccountNumber(num);
-						Transactions::deposit(custList, custPos, id, num, amount);
+						Transactions::deposit(custList, id, num, amount);
 						break;
 					}
 				}
@@ -135,7 +135,7 @@ void ATM_Util::createAccount(Customer* custList, int custPos, int currentCust) {
 	} while (option != 3);
 }
 
-void ATM_Util::viewAccountInfo(Customer* custList, int currentCust) {
+void ATM_Util::viewAccountInfo(vector<Customer> custList, int currentCust) {
 	
 	custList[currentCust].print();
 	cout <<endl;
@@ -152,7 +152,7 @@ void ATM_Util::viewAccountInfo(Customer* custList, int currentCust) {
 	cout <<"\t\t====================="<<endl;
 }
 
-void ATM_Util::customerTransHistory(Customer* custList, int currentCust) {
+void ATM_Util::customerTransHistory(vector<Customer> custList, int currentCust) {
 	
 	string data, custID, accNum, amount;
 	int n=1;
@@ -187,19 +187,19 @@ void ATM_Util::customerTransHistory(Customer* custList, int currentCust) {
 	}
 }
 
-void ATM_Util::changePassword(User* userList[], int userPos, int currentUser) {
-	
+void ATM_Util::changePassword(vector<User*> &userList, int currentUser) {
+	/*
     string pass;
 
-    Admin_Util::fromLoginFile(userList, userPos);
+    Admin_Util::fromLoginFile(userList);
     cout <<"Enter new password: ";
     cin >>pass;
     userList[currentUser]->loginInfo.setPassword(pass);
     Admin_Util::toLoginFile(userList, userPos);
-
+*/
 }
 
-void ATM_Util::depositFunds(Customer* custList, int custPos, int currentCust) {
+void ATM_Util::depositFunds(vector<Customer> &custList, int currentCust) {
 	
 	int option, acc1, acc2;
 	double amount;
@@ -248,7 +248,7 @@ void ATM_Util::depositFunds(Customer* custList, int custPos, int currentCust) {
 					cout <<"Current Balance: $"<<custList[currentCust].acc[acc1].getBalance()<<"\n"
 					 	 <<"Enter amount to deposit: ";
 					cin >>amount;
-					Transactions::deposit(custList, custPos, custList[currentCust].getID(), accNum, amount);
+					Transactions::deposit(custList, custList[currentCust].getID(), accNum, amount);
 					cout <<"**Transaction Successful**"<<"\n"
 						 <<"New Balance: $"<<custList[currentCust].acc[acc1].getBalance()<<endl;
 					return;
@@ -262,7 +262,7 @@ void ATM_Util::depositFunds(Customer* custList, int custPos, int currentCust) {
 					cout <<"Current Balance: $"<<custList[currentCust].acc[acc2].getBalance()<<"\n"
 					 	 <<"Enter amount to deposit: ";
 					cin >>amount;
-					Transactions::deposit(custList, custPos, custList[currentCust].getID(), accNum, amount);
+					Transactions::deposit(custList, custList[currentCust].getID(), accNum, amount);
 					cout <<"**Transaction Successful**"<<"\n"
 						 <<"New Balance: $"<<custList[currentCust].acc[acc2].getBalance()<<endl;
 					return;
@@ -282,7 +282,7 @@ void ATM_Util::depositFunds(Customer* custList, int custPos, int currentCust) {
 	} while (option != 3);
 }
 
-void ATM_Util::withdrawFunds(Customer* custList, int custPos, int currentCust) {
+void ATM_Util::withdrawFunds(vector<Customer> &custList, int currentCust) {
 	
 	int option, acc1, acc2;
 	double amount;
@@ -331,7 +331,7 @@ void ATM_Util::withdrawFunds(Customer* custList, int custPos, int currentCust) {
 					cout <<"Current Balance: $"<<custList[currentCust].acc[acc1].getBalance()<<"\n"
 					 	 <<"Enter amount to withdraw: ";
 					cin >>amount;
-					Transactions::withdraw(custList, custPos, custList[currentCust].getID(), accNum, amount);
+					Transactions::withdraw(custList, custList[currentCust].getID(), accNum, amount);
 					cout <<"**Transaction Successful**"<<"\n"
 						 <<"New Balance: $"<<custList[currentCust].acc[acc1].getBalance()<<endl;
 					return;
@@ -345,7 +345,7 @@ void ATM_Util::withdrawFunds(Customer* custList, int custPos, int currentCust) {
 					cout <<"Current Balance: $"<<custList[currentCust].acc[acc2].getBalance()<<"\n"
 					 	 <<"Enter amount to withdraw: ";
 					cin >>amount;
-					Transactions::withdraw(custList, custPos, custList[currentCust].getID(), accNum, amount);
+					Transactions::withdraw(custList, custList[currentCust].getID(), accNum, amount);
 					cout <<"**Transaction Successful**"<<"\n"
 						 <<"New Balance: $"<<custList[currentCust].acc[acc2].getBalance()<<endl;
 					return;

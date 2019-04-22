@@ -1,4 +1,5 @@
 
 Admin	Root	Admin	6785A	00-XXX-0000	9-Apr-2019	Root	Full-Time	
 Banker	Test	Banker	6743B	00-XXX-0000	13-Apr-2019	Tester	Full-Time	
-Customer	Test	Customer	3285C	00-XXX-000	Tester	Null	53345	Checking	391.31	Null	Null	0	
+Customer	Test	Customer	3285C	00-XXX-000	Tester	Null	53345	Checking	391.31	36745	Savings	69	
+Customer	John	Doe	12345C	05-Aug-1980	Janitor	55_Sesame_Street	63234	Savings	751.21	Null	Null	0	

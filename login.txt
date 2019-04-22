@@ -2,3 +2,4 @@
 6785A	root	toor	
 6743B	banker	pass	
 3285C	customer	pass	
+12345C	john	doe	

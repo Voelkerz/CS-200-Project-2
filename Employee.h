@@ -11,7 +11,7 @@ class Employee: public User
 		string employmentType;
 	public:
 		Employee();
-		void print();
+		virtual void print()=0;
 		void setHireDate(string);
 		void setRank(string);
 		void setEmploymentType(string);

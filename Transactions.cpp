@@ -2,58 +2,60 @@
 #include "Transactions.h"
 
 //mutators
-void Transactions::deposit(Customer* custList, int custPos, string customerID, string accNum, double amount)
+void Transactions::deposit(vector<Customer> &custList, string customerID, string accNum, double amount)
 {
 	double balance;
 
-	for (int i = 0; i < custPos; i++ )
-	{
-		if (customerID == custList[i].getID())
-			{
-				balance = custList[i].acc[0].getBalance();
-				balance = balance + amount;
-				custList[i].acc[0].setBalance(balance);
+	for (int i = 0; i < custList.size(); i++ ) {
+		if (customerID == custList[i].getID()) {
+			for (int j=0; j<2; j++) {
+				if (accNum == custList[i].acc[j].getAccountNumber()) {
+					balance = custList[i].acc[j].getBalance();
+					balance += amount;
+					custList[i].acc[j].setBalance(balance);
+				}
 			}
+		}
 	}
 	
-	Transactions::toTransactionFile(custList, custPos, customerID, accNum, amount);
+	Transactions::toTransactionFile(custList, customerID, accNum, amount);
 }
 
-void Transactions::withdraw(Customer* custList, int custPos, string customerID, string accNum, double withdraw)
+void Transactions::withdraw(vector<Customer> &custList, string customerID, string accNum, double withdraw)
 {
 	double balance;
 	
-	for (int i = 0; i < custPos; i++ )
-	{
-		if (customerID == custList[i].getID())
-			{
-				balance = custList[i].acc[0].getBalance();
-				if (withdraw > balance)
-				{
-					cout << "ERROR: NOT ENOUGH FUNDS";
-				}
-				else
-				{
-					balance = balance - withdraw;
-					custList[i].acc[0].setBalance(balance);
+	for (int i = 0; i < custList.size(); i++ ) {
+		if (customerID == custList[i].getID()) {
+			for (int j=0; j<2; j++) {
+				if (accNum == custList[i].acc[j].getAccountNumber()) {
+					balance = custList[i].acc[j].getBalance();
+					if (withdraw > balance) {
+						cout << "**Error: Not Enough Funds**";
+					}
+					else {
+						balance = balance - withdraw;
+						custList[i].acc[j].setBalance(balance);
+					}
 				}
 			}
+		}
 	}
 	
-	Transactions::toTransactionFile(custList, custPos, customerID, accNum, -withdraw);
+	Transactions::toTransactionFile(custList, customerID, accNum, -withdraw);
 }
 
 
 
 //accessors
-void Transactions::toTransactionFile(Customer* custList, int custPos, string id, string accNum, double amount) {
+void Transactions::toTransactionFile(vector<Customer> &custList, string id, string accNum, double amount) {
 	
 	ostringstream convert; //for string conversion
 	string converted; //for string conversion
 	ofstream transFile;
 	transFile.open("transactions.txt", ios_base::app);
 	
-	for (int i=0; i<custPos; i++) {
+	for (int i=0; i<custList.size(); i++) {
 		if (custList[i].getID() == id) {
 			transFile <<endl<<encrypt(id)<<"\t"<<encrypt(accNum)<<"\t";
 			

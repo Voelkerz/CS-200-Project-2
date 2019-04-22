@@ -5,29 +5,29 @@
 //												MAIN() FOR ADMIN UTILITY												//
 //----------------------------------------------------------------------------------------------------------------------//
 
-bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &userPos, Admin* adminList,  int admMax, int &adminPos, Banker* bnkrList, int bnkrMax, int &bnkrPos, Customer* custList, int custMax, int &custPos) {
+bool Admin_Util::util_main(int currentUser, vector<User*> &userList, vector<Admin> &adminList, vector<Banker> &bnkrList, vector<Customer> &custList) {
 	int option;
 	
-	do {	
+	do {		
 		option = Admin_Util::menu(userList, currentUser);
 		switch (option) {
 			case 1: 
-				Admin_Util::createAdmin(userList, userMax, userPos, adminList, admMax, adminPos);
+				Admin_Util::createAdmin(userList, adminList);
 				break;
 			case 2:
-				Admin_Util::createBanker(userList, userMax, userPos, bnkrList, bnkrMax, bnkrPos);
+				Admin_Util::createBanker(userList, bnkrList);
 				break;
 			case 3:
-				Admin_Util::createCustomer(userList, userMax, userPos, custList, custMax, custPos);
+				Admin_Util::createCustomer(userList, custList);
 				break;
 			case 4:
-				Admin_Util::printAllUsers(userList, userPos);
+				Admin_Util::printAllUsers(userList);
 				break;
 			case 5:
-				Admin_Util::viewUser(userList, userPos);
+				Admin_Util::viewUser(userList);
 				break;
 			case 6:
-				Admin_Util::audit(custList, custPos);
+				Admin_Util::audit(custList);
 				break;
 			case 7:
 				cout <<"**Logging Off**"<<endl;
@@ -44,11 +44,11 @@ bool Admin_Util::util_main(int currentUser, User* userList[], int userMax, int &
 //													MAIN MENU															//
 //----------------------------------------------------------------------------------------------------------------------//
 
-int Admin_Util::menu(User* userList[], int currentUser) {
+int Admin_Util::menu(vector<User*> userList, int currentUser) {
 	int option;
 	
 	system("CLS");
-	cout <<"\t\tLogged In: "<<userList[currentUser]->getName()<<"\n\n"
+	cout <<"Logged In: "<<userList[currentUser]->getName()<<"\n\n"
 		 <<"\t\tAdministrator Utility Menu"<<"\n"
 		 <<"\t\t=========================="<<"\n"
 		 <<"\t\t1. Create Administrator Account"<<"\n"
@@ -68,11 +68,12 @@ int Admin_Util::menu(User* userList[], int currentUser) {
 //													FUNCTIONS															//
 //----------------------------------------------------------------------------------------------------------------------//
 
-void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Admin* adminList, int admMax, int &adminPos) {		// Creates Admin Accounts
-	int num;
+void Admin_Util::createAdmin(vector<User*> &userList, vector<Admin> &adminList) {		// Creates Admin Accounts
+
 	string username, password, fname, lname, id, dob, hiredate, rank, emptype;
+	int num;
 	
-	if (adminPos == admMax)
+	if (adminList.size() == adminList.max_size())
 		cout <<"**Employee Not Added: List Full**"<<endl;
 	else
 	{
@@ -80,7 +81,7 @@ void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Admin*
 		{
 			cout <<"How many administrators do you want to add?: ";
 			cin >>num;
-		} while (num < 1 || num > (admMax - adminPos));
+		} while (num < 1 || num > (adminList.max_size() - adminList.size()));
 			
 		//fill in admin info
 		for (int i=0; i<num; i++)
@@ -101,29 +102,27 @@ void Admin_Util::createAdmin(User* userList[], int userMax, int &userPos, Admin*
 			cin >>rank;
 			cout <<"Enter Full/Part: ";
 			cin >>emptype;
-			
-			Admin adm(fname, lname, id, dob, hiredate, rank, emptype);
-			adm.loginInfo.setUsername(username);
-			adm.loginInfo.setPassword(password);
 				
-			adminList[adminPos] = adm;
-			userList[userPos] = &adminList[adminPos];
+			adminList.push_back(Admin(fname, lname, id, dob, hiredate, rank, emptype));
+			userList.push_back(&adminList.back());
 			
-			adminPos++;
-			userPos++;
+			// Set username and password
+			adminList.back().loginInfo.setUsername(username);
+			adminList.back().loginInfo.setPassword(password);
 			
 			// Write username and password into file
-			Admin_Util::fromLoginFile(userList, userPos);
-			Admin_Util::toLoginFile(userList, userPos);
+			Admin_Util::fromLoginFile(userList);
+			Admin_Util::toLoginFile(userList);
 		}
 	}
 }
 
-void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Banker* bnkrList, int bnkrMax, int &bnkrPos) {
-	int num;
-	string username, password, fname, lname, id, dob, hiredate, rank, emptype;
+void Admin_Util::createBanker(vector<User*> &userList, vector<Banker> &bnkrList) {
 	
-	if (bnkrPos == bnkrMax)
+	string username, password, fname, lname, id, dob, hiredate, rank, emptype;
+	int num;
+	
+	if (bnkrList.size() == bnkrList.max_size())
 		cout <<"**Employee Not Added: List Full**"<<endl;
 	else
 	{
@@ -131,7 +130,7 @@ void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Banke
 		{
 			cout <<"How many bankers do you want to add?: ";
 			cin >>num;
-		} while (num < 1 || num > (bnkrMax - bnkrPos));
+		} while (num < 1 || num > (bnkrList.max_size() - bnkrList.size()));
 			
 		for (int i=0; i<num; i++)
 		{
@@ -152,35 +151,33 @@ void Admin_Util::createBanker(User* userList[], int userMax, int &userPos, Banke
 			cout <<"Enter Full/Part: ";
 			cin >>emptype;
 			
-			Banker bnkr(fname, lname, id, dob, hiredate, rank, emptype);
-			bnkr.loginInfo.setUsername(username);
-			bnkr.loginInfo.setPassword(password);
-				
-			bnkrList[bnkrPos] = bnkr;
-			userList[userPos] = &bnkrList[bnkrPos];
+			bnkrList.push_back(Banker(fname, lname, id, dob, hiredate, rank, emptype));
+			userList.push_back(&bnkrList.back());
 			
-			bnkrPos++;
-			userPos++;
+			// Set username and password
+			bnkrList.back().loginInfo.setUsername(username);
+			bnkrList.back().loginInfo.setPassword(password);
 			
 			// Write username and password into file
-			Admin_Util::fromLoginFile(userList, userPos);
-			Admin_Util::toLoginFile(userList, userPos);
+			Admin_Util::fromLoginFile(userList);
+			Admin_Util::toLoginFile(userList);
 		}
 	}
 }
 
-void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Customer* custList, int custMax, int &custPos) {
-	int num;
-	string username, password, fname, lname, id, dob, occupation, address;
+void Admin_Util::createCustomer(vector<User*> &userList, vector<Customer> &custList) {
 	
-	if (custPos == custMax)
+	string username, password, fname, lname, id, dob, occupation, address;
+	int num;
+	
+	if (custList.size() == custList.max_size())
 		cout <<"**Customer Not Added: List Full**"<<endl;
 	else
 	{
 		do {
 			cout <<"How many customers do you want to add?: ";
 			cin >>num;
-		} while (num < 1 || num > (custMax - custPos));
+		} while (num < 1 || num > (custList.max_size() - custList.size()));
 			
 		for (int i=0; i<num; i++) {
 			cout <<"\nEnter Username: ";
@@ -198,44 +195,41 @@ void Admin_Util::createCustomer(User* userList[], int userMax, int &userPos, Cus
 			cout <<"Enter Address: ";
 			cin >>address;
 			
-			Customer cust(fname, lname, id, dob, occupation, address);
-			cust.loginInfo.setUsername(username);
-			cust.loginInfo.setPassword(password);
-				
-			custList[custPos] = cust;
-			userList[userPos] = &custList[custPos];
+			custList.push_back(Customer(fname, lname, id, dob, occupation, address));
+			userList.push_back(&custList.back());
 			
-			custPos++;
-			userPos++;
+			// Set username and password
+			custList.back().loginInfo.setUsername(username);
+			custList.back().loginInfo.setPassword(password);
 			
 			// Write username and password into file
-			Admin_Util::fromLoginFile(userList, userPos);
-			Admin_Util::toLoginFile(userList, userPos);
+			Admin_Util::fromLoginFile(userList);
+			Admin_Util::toLoginFile(userList);
 		}
 	}
 }
 
-void Admin_Util::printAllUsers(User* userList[], int userPos) {
-	for (int i=0; i<userPos; i++)
+void Admin_Util::printAllUsers(vector<User*> userList) {
+	for (int i=0; i<userList.size(); i++)
 	{
 		userList[i]->print();
 	}
 	cout <<"======================="<<endl;
 }
 
-void Admin_Util::viewUser(User* userList[], int userPos) {
+void Admin_Util::viewUser(vector<User*> userList) {
 	string id;
 	
 	cout <<"Enter the ID# of the user to view: "<<endl;
 	cin >>id;
 	
-	for (int i=0; i<userPos; i++)
+	for (int i=0; i<userList.size(); i++)
 		if (userList[i]->getID() == id) {
 			userList[i]->print();
 		}
 }
 
-void Admin_Util::audit(Customer* custList, int custPos) {
+void Admin_Util::audit(vector<Customer> custList) {
 	int option;
 	string id;
 	
@@ -246,7 +240,7 @@ void Admin_Util::audit(Customer* custList, int custPos) {
 			 <<"\t\t1. View Customer Account Info"<<"\n"
 			 <<"\t\t2. List Customers"<<"\n"
 			 <<"\t\t3. View Transaction Log"<<"\n"
-			 <<"\t\t4. Return to Admin Menu"<<"\n"
+			 <<"\t\t4. Return"<<"\n"
 			 <<"\tChoose an option"<<endl;
 		cin >>option;
 	
@@ -255,16 +249,16 @@ void Admin_Util::audit(Customer* custList, int custPos) {
 				cout <<"Enter Customer ID#: ";
 				cin >>id;
 				cout <<endl;
-				Audit::printCustomerAccount(custList, custPos, id);
+				Audit::printCustomerAccount(custList, id);
 				break;
 			case 2:
-				Audit::printCustomerList(custList, custPos);
+				Audit::printCustomerList(custList);
 				break;
 			case 3:
-				Audit::fullTransactionHistory(custList, custPos);
+				Audit::fullTransactionHistory(custList);
 				break;
 			case 4:
-				cout <<"**Returning to Admin Menu**"<<endl;
+				cout <<"**Returning**"<<endl;
 				return;
 			default:
 				cout <<"**Invalid Option**"<<endl;	
@@ -276,18 +270,18 @@ void Admin_Util::audit(Customer* custList, int custPos) {
 
 // Write to all loaded user passwords and usernames to "login.txt"
 // Caution** Use only after fromLoginFile(), or you will wipe the "login.txt" file
-void Admin_Util::toLoginFile(User* list[], int userPos) {
+void Admin_Util::toLoginFile(vector<User*> &list) {
 	ofstream loginFile;
 	loginFile.open("login.txt");
 	
-	for (int i=0; i<userPos; i++) {
+	for (int i=0; i<list.size(); i++) {
 		loginFile <<endl<<encrypt(list[i]->getID())<<"\t"<<encrypt(list[i]->loginInfo.getUsername())<<"\t"<<encrypt(list[i]->loginInfo.getPassword())<<"\t";
 	}
 	loginFile.close();
 }
 
 // Will load users with their password prior to saving to "login.txt"
-void Admin_Util::fromLoginFile(User* list[], int userPos) {
+void Admin_Util::fromLoginFile(vector<User*> &list) {
 	
 	string data, id, u, p;
 	
@@ -302,7 +296,7 @@ void Admin_Util::fromLoginFile(User* list[], int userPos) {
 			getline(loginFile, data, '\t');
 			p = decrypt(data);
 			
-			for (int i=0; i<userPos; i++) {
+			for (int i=0; i<list.size(); i++) {
 				if (list[i]->getID() == id) {
 					list[i]->loginInfo.setUsername(u);
 					list[i]->loginInfo.setPassword(p);
@@ -318,20 +312,20 @@ void Admin_Util::fromLoginFile(User* list[], int userPos) {
 }
 
 // Write all users to "users.txt" for persistent data
-void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, int custPos, Admin* adminList, int adminPos, Banker* bnkrList, int bnkrPos) {
+void Admin_Util::toUserFile(vector<User*> userList, vector<Admin> adminList, vector<Banker> bnkrList, vector<Customer> custList) {
 	
 	ostringstream convert; //for string conversion
 	string converted; //for string conversion
 	ofstream userFile;
 	userFile.open("users.txt");
 	
-	for (int i=0; i<userPos; i++) {
+	for (int i=0; i<userList.size(); i++) {
 		// Cycle through entire user list and write to file
 		userFile <<endl<<userList[i]->getAccessRights()<<"\t"<<userList[i]->getFirstName()<<"\t"<<userList[i]->getLastName()<<"\t"<<encrypt(userList[i]->getID())<<"\t"<<encrypt(userList[i]->getDOB())<<"\t";
 		
 		// If current user is an Admin, then write these specific attributes to file
 		if (userList[i]->getAccessRights() == "Admin") {
-			for (int j=0; j<adminPos; j++) {
+			for (int j=0; j<adminList.size(); j++) {
 				if (userList[i]->getID() == adminList[j].getID()) {	// Match user ID in both arrays to make sure it is the correct user
 					userFile <<encrypt(adminList[j].getHireDate())<<"\t"<<encrypt(adminList[j].getRank())<<"\t"<<encrypt(adminList[j].getEmploymentType())<<"\t";
 				}
@@ -339,7 +333,7 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 		}
 		
 		else if (userList[i]->getAccessRights() == "Banker") {
-			for (int j=0; j<bnkrPos; j++) {
+			for (int j=0; j<bnkrList.size(); j++) {
 				if (userList[i]->getID() == bnkrList[j].getID()) {
 					userFile <<encrypt(bnkrList[j].getHireDate())<<"\t"<<encrypt(bnkrList[j].getRank())<<"\t"<<encrypt(bnkrList[j].getEmploymentType())<<"\t";
 				}
@@ -347,7 +341,7 @@ void Admin_Util::toUserFile(User* userList[], int userPos, Customer* custList, i
 		}
 		
 		else if (userList[i]->getAccessRights() == "Customer") {
-			for (int j=0; j<custPos; j++) {
+			for (int j=0; j<custList.size(); j++) {
 				if (userList[i]->getID() == custList[j].getID()) {
 					userFile <<encrypt(custList[j].getOccupation())<<"\t"<<encrypt(custList[j].getAddress())<<"\t";
 					for (int h=0; h<2; h++) {

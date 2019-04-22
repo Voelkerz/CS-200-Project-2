@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 using namespace std;
 #include "Login.h"
 #include "Admin_Util.h"
@@ -13,9 +14,9 @@ using namespace std;
 #define LOGIN_UTIL_H
 class Login_Util {
 	public:
-		static void util_main(User* [], int, int&, Admin*, int, int&, Banker*, int, int&, Customer*, int, int&);
-		static bool login(User* [], int, int&);
-		static void initializeUsers(User* [], int&, Admin*, int&, Banker*, int&, Customer*, int&);
+		static void util_main(vector<User*> &, vector<Admin> &, vector<Banker> &, vector<Customer> &);
+		static bool login(vector<User*>, int&);
+		static void initializeUsers(vector<User*> &, vector<Admin> &, vector<Banker> &, vector<Customer> &);
 		static string encrypt(string);
 		static string decrypt(string);
 		virtual void foo()=0;
