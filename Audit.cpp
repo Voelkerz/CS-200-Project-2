@@ -73,23 +73,27 @@ void Audit::fullTransactionHistory(vector<Customer> custList) {
 }
 
 string Audit::encrypt(string encpt) {
-/*	char key = 'a';
+char key = 'a';
+	string output = encpt;
 	
 	for (int i=0; i<encpt.size(); i++)
 	{
-		encpt[i] ^= key;
+		output[i] = encpt[i] ^ key;
 	}
+	
+	return output;
 
-*/	return encpt;
 }
 
 string Audit::decrypt(string decpt) {
-/*	char key = 'a';
+char key = 'a';
+	string output = decpt;
 	
 	for (int i=0; i<decpt.size(); i++)
 	{
-		decpt[i] ^= key;
+		output[i] = decpt[i] ^ key;
 	}
 	
-*/	return decpt;
+	
+	return output;
 }
