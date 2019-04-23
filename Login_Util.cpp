@@ -167,23 +167,34 @@ void Login_Util::initializeUsers(vector<User*> &userList, vector<Admin> &adminLi
 }
 
 string Login_Util::encrypt(string encpt) {
-/*	char key = 'a';
+	
+	char key = 'a';
+	string output = encpt;
 	
 	for (int i=0; i<encpt.size(); i++)
 	{
-		encpt[i] ^= key;
+		output[i] = encpt[i] ^ key;
 	}
 	
-*/	return encpt;
+	return output;
 }
 
 string Login_Util::decrypt(string decpt) {
-/*	char key = 'a';
+	
+	char code = 'a';
+	string output = decpt;
 	
 	for (int i=0; i<decpt.size(); i++)
 	{
-		decpt[i] ^= key;
+		output[i] = decpt[i] ^ code;
 	}
 	
-*/	return decpt;
+	
+	
+/*	for (int i=0; i<decpt.size(); i++)
+	{
+		decpt[i] ^= key;
+	}
+	*/
+	return output;
 }
