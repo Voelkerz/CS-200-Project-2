@@ -21,11 +21,10 @@ void Audit::printCustomerAccount(vector<Customer> custList, string id) {
 				}
 			}
 			cout <<"\t======================="<<endl;
-			break;
+			return;
 		}
-		else
-			cout <<"**Error: Customer ID Not Found**"<<endl;
 	}
+	cout <<"**Error: Customer ID Not Found**"<<endl;
 }
 
 void Audit::printCustomerList(vector<Customer> custList) {
